@@ -2,84 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Invoice</title>
+<title>KoIKMa Invoice</title>
 
 <style>
 @page {
   size: A4;
-  margin: 15mm;
+  margin: 0;
 }
 
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
 }
 
-.invoice-box {
+.invoice {
   width: 210mm;
-  min-height: 297mm;
-  margin: auto;
-  background: white;
-  padding: 20mm;
+  height: 297mm;
+  padding: 15mm;
   box-sizing: border-box;
+  position: relative;
+  background: white;
 }
 
-h1 {
-  text-align: right;
-  margin-bottom: 30px;
-}
-
-.top-section {
+/* HEADER */
+.header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  align-items: center;
+}
+
+.logo {
+  width: 80px;
+}
+
+.company {
+  font-size: 14px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #0a2a66;
+}
+
+/* INFO */
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.box {
+  width: 48%;
+}
+
+.box h3 {
+  background: #0a2a66;
+  color: white;
+  padding: 5px;
+  font-size: 14px;
 }
 
 input {
   border: none;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #aaa;
   width: 100%;
-  font-size: 14px;
+  margin-bottom: 8px;
 }
 
-.table {
+/* TABLE */
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.table th, .table td {
-  border: 1px solid #000;
+th {
+  background: #0a2a66;
+  color: white;
   padding: 8px;
-  text-align: left;
+  font-size: 13px;
 }
 
-.table th {
-  background: #eee;
+td {
+  border: 1px solid #ccc;
+  padding: 6px;
 }
 
+td input {
+  width: 100%;
+  border: none;
+}
+
+/* TOTAL */
 .total {
-  text-align: right;
   margin-top: 20px;
-  font-size: 18px;
+  text-align: right;
 }
 
-.print-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
+/* WATER IMAGE */
+.watermark {
+  position: absolute;
+  right: 10mm;
+  top: 40mm;
+  width: 120px;
+  opacity: 0.15;
 }
 
+/* FOOTER */
+.footer {
+  position: absolute;
+  bottom: 10mm;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+}
+
+/* PRINT */
 @media print {
-  body {
-    background: white;
-  }
-
-  .print-btn {
-    display: none;
+  input {
+    border: none;
   }
 }
 </style>
@@ -87,46 +130,48 @@ input {
 
 <body>
 
-<button class="print-btn" onclick="window.print()">Print</button>
+<div class="invoice">
 
-<div class="invoice-box">
-
-  <h1>INVOICE</h1>
-
-  <div class="top-section">
+  <!-- HEADER -->
+  <div class="header">
     <div>
-      <strong>From:</strong><br>
-      <input value="KoIKMa Berhad"><br>
-      <input value="+603 79321481"><br>
-      <input value="info@koikma.my">
+      <!-- PUT YOUR LOGO FILE HERE -->
+      <img src="kikma.png" class="logo">
+      <div class="company">
+        <strong>KoIKMa Berhad</strong><br>
+        +603 79321481<br>
+        info@koikma.my
+      </div>
     </div>
 
-    <div>
-      <strong>To:</strong><br>
-      <input placeholder="Client Name"><br>
-      <input placeholder="Client Phone"><br>
-      <input placeholder="Client Email">
-    </div>
+    <div class="title">INVOICE</div>
   </div>
 
-  <div class="top-section">
-    <div>
-      <strong>Invoice No:</strong><br>
-      <input value="INV-001">
+  <!-- INFO -->
+  <div class="info">
+    <div class="box">
+      <h3>Bill To</h3>
+      <input placeholder="Client Name">
+      <input placeholder="Phone">
+      <input placeholder="Email">
+      <input placeholder="Address">
     </div>
 
-    <div>
-      <strong>Date:</strong><br>
+    <div class="box">
+      <h3>Invoice Details</h3>
+      <input placeholder="Invoice No">
       <input type="date">
+      <input placeholder="Payment Terms">
     </div>
   </div>
 
-  <table class="table">
+  <!-- TABLE -->
+  <table>
     <tr>
       <th>Description</th>
       <th>Qty</th>
       <th>Price (RM)</th>
-      <th>Total (RM)</th>
+      <th>Total</th>
     </tr>
 
     <tr>
@@ -152,8 +197,17 @@ input {
 
   </table>
 
+  <!-- TOTAL -->
   <div class="total">
-    <strong>Grand Total: RM <input style="width:150px;"></strong>
+    <h3>Grand Total: RM <input style="width:120px;"></h3>
+  </div>
+
+  <!-- HYDRATEMAX IMAGE (WATERMARK STYLE) -->
+  <img src="22.png" class="watermark">
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Stay Hydrated. Stay Healthy.
   </div>
 
 </div>
