@@ -24,62 +24,13 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--navy);
     color: var(--white);
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
-  }
-
-  /* IMAGE PLACEHOLDER STYLES */
-  .img-placeholder {
-    position: relative;
-    width: 100%;
-    background: linear-gradient(145deg, #0a1e4a, #050f2c);
-    border-radius: 16px;
-    border: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transition: all 0.4s ease;
-    min-height: 180px;
-    overflow: hidden;
-  }
-  .img-placeholder:hover {
-    border-color: var(--bright);
-    box-shadow: 0 12px 30px rgba(26,95,216,0.25);
-  }
-  .img-placeholder .placeholder-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 32px 20px;
-  }
-  .img-placeholder .placeholder-icon {
-    font-size: 48px;
-    opacity: 0.5;
-    color: var(--sky);
-  }
-  .img-placeholder .placeholder-text {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  .img-placeholder .placeholder-badge {
-    background: rgba(59,130,246,0.15);
-    border-radius: 40px;
-    padding: 4px 12px;
-    font-size: 9px;
-    color: var(--sky);
-    font-family: monospace;
   }
 
   .img-wrap {
@@ -93,7 +44,8 @@
   .img-wrap:hover { border-color: rgba(59,130,246,0.4); box-shadow: 0 12px 40px rgba(26,95,216,0.2); }
   .img-wrap img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.5s ease;
   }
@@ -118,14 +70,12 @@
     .shopee-img-wrap { grid-template-columns: 1fr; }
   }
 
-  /* Stars canvas */
   #stars-canvas {
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     pointer-events: none; z-index: 0;
   }
 
-  /* Grid overlay */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -136,7 +86,6 @@
     pointer-events: none; z-index: 1;
   }
 
-  /* HERO */
   .hero {
     position: relative; z-index: 2;
     min-height: 100vh;
@@ -146,7 +95,6 @@
     padding: 80px 40px;
     overflow: hidden;
   }
-
   .hero::after {
     content: '';
     position: absolute; inset: 0;
@@ -154,29 +102,10 @@
     pointer-events: none;
   }
 
-  .hero-orb {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .orb1 {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(26,95,216,0.18) 0%, transparent 70%);
-    top: -100px; left: -100px;
-    animation: orbFloat1 12s ease-in-out infinite;
-  }
-  .orb2 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
-    bottom: -50px; right: -50px;
-    animation: orbFloat2 15s ease-in-out infinite;
-  }
-  .orb3 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%);
-    top: 30%; right: 10%;
-    animation: orbFloat3 18s ease-in-out infinite;
-  }
+  .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+  .orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,95,216,0.18) 0%, transparent 70%); top: -100px; left: -100px; animation: orbFloat1 12s ease-in-out infinite; }
+  .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%); bottom: -50px; right: -50px; animation: orbFloat2 15s ease-in-out infinite; }
+  .orb3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%); top: 30%; right: 10%; animation: orbFloat3 18s ease-in-out infinite; }
 
   @keyframes orbFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,30px)} }
   @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,-20px)} }
@@ -200,362 +129,136 @@
     opacity: 0;
     animation-delay: 0.2s;
   }
-  .badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--sky);
-    animation: pulse 2s ease-in-out infinite;
-  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
 
   .hero-eyebrow {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--gold); text-transform: uppercase;
     margin-bottom: 16px;
     position: relative; z-index: 3;
-    animation: fadeDown 0.8s ease forwards;
-    opacity: 0;
-    animation-delay: 0.4s;
+    animation: fadeDown 0.8s ease forwards; opacity: 0; animation-delay: 0.4s;
   }
 
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(56px, 10vw, 120px);
-    font-weight: 700;
-    line-height: 0.9;
+    font-weight: 700; line-height: 0.9;
     position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards;
-    opacity: 0;
-    animation-delay: 0.5s;
+    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.5s;
   }
   .hero-title .line1 { display: block; color: var(--white); }
   .hero-title .line2 {
     display: block;
     background: linear-gradient(135deg, var(--bright) 0%, var(--sky) 50%, var(--gold) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
 
   .hero-sub {
-    font-size: 15px;
-    color: var(--muted);
-    margin-top: 24px;
+    font-size: 15px; color: var(--muted); margin-top: 24px;
     position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards;
-    opacity: 0;
-    animation-delay: 0.7s;
-    letter-spacing: 0.05em;
+    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.7s; letter-spacing: 0.05em;
   }
 
   .hero-divider {
     display: flex; align-items: center; gap: 16px;
-    margin: 40px auto 0;
-    width: 200px;
+    margin: 40px auto 0; width: 200px;
     position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards;
-    opacity: 0;
-    animation-delay: 0.9s;
+    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.9s;
   }
-  .hero-divider::before, .hero-divider::after {
-    content: ''; flex: 1; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent));
-  }
+  .hero-divider::before, .hero-divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--accent)); }
   .hero-divider::after { background: linear-gradient(90deg, var(--accent), transparent); }
   .hero-divider span { font-size: 16px; color: var(--gold); }
 
   .scroll-hint {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    z-index: 3;
-    animation: fadeUp 1s ease forwards;
-    opacity: 0;
-    animation-delay: 1.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 3;
+    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 1.2s;
   }
   .scroll-hint span { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.2em; }
-  .scroll-arrow {
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, var(--bright), transparent);
-    animation: scrollDrop 2s ease-in-out infinite;
-  }
+  .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--bright), transparent); animation: scrollDrop 2s ease-in-out infinite; }
   @keyframes scrollDrop {
     0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
     51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
   }
 
-  /* SECTIONS */
-  .section {
-    position: relative; z-index: 2;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 40px;
-  }
-
-  .section-header {
-    display: flex; align-items: center; gap: 20px;
-    margin-bottom: 48px;
-  }
-  .section-number {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--bright);
-    letter-spacing: 0.2em;
-    opacity: 0.6;
-  }
+  .section { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 80px 40px; }
+  .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
+  .section-number { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--bright); letter-spacing: 0.2em; opacity: 0.6; }
   .section-line { flex: 0 0 40px; height: 1px; background: var(--line); }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 5vw, 48px);
-    font-weight: 600;
-    color: var(--white);
-  }
-  .section-title span {
-    background: linear-gradient(135deg, var(--bright), var(--sky));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 48px); font-weight: 600; color: var(--white); }
+  .section-title span { background: linear-gradient(135deg, var(--bright), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-  /* CARDS */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
-  }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px; }
 
   .card {
     background: linear-gradient(135deg, rgba(10,30,74,0.8) 0%, rgba(5,15,44,0.9) 100%);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 28px;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid var(--line); border-radius: 16px; padding: 28px;
+    position: relative; overflow: hidden;
     transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   }
-  .card::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(26,95,216,0.08) 0%, transparent 60%);
-    opacity: 0; transition: opacity 0.4s;
-  }
+  .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,95,216,0.08) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
   .card:hover { transform: translateY(-6px); border-color: rgba(59,130,246,0.4); box-shadow: 0 20px 60px rgba(26,95,216,0.25); }
   .card:hover::before { opacity: 1; }
 
-  .card-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: linear-gradient(135deg, rgba(26,95,216,0.3), rgba(59,130,246,0.15));
-    border: 1px solid rgba(59,130,246,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-  .card-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--sky);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .card-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.3;
-  }
-  .card-date {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    color: var(--gold);
-    margin-top: 8px;
-  }
+  .card-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--sky); text-transform: uppercase; margin-bottom: 8px; }
+  .card-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); line-height: 1.3; }
+  .card-date { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--gold); margin-top: 8px; }
 
-  .shopee-block {
-    background: linear-gradient(135deg, rgba(238,77,45,0.08) 0%, rgba(5,15,44,0.95) 100%);
-    border: 1px solid rgba(238,77,45,0.2);
-    border-radius: 16px;
-    padding: 28px;
-    display: flex; flex-wrap: wrap; align-items: center; gap: 20px;
-    margin-top: 24px;
-  }
-  .shopee-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; font-weight: 700;
-    color: #ee4d2d;
-  }
-  .shopee-link-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: linear-gradient(135deg, #ee4d2d, #f5793a);
-    color: white; font-size: 13px; font-weight: 500;
-    padding: 10px 20px; border-radius: 8px;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    white-space: nowrap;
-  }
-  .shopee-link-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(238,77,45,0.4); }
-
-  /* TABLE */
   .phase-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px; letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 6px 16px; border-radius: 30px;
-    margin-bottom: 24px;
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 6px 16px; border-radius: 30px; margin-bottom: 24px;
   }
-  .phase-tag.fasa1 {
-    color: var(--bright);
-    background: rgba(59,130,246,0.1);
-    border: 1px solid rgba(59,130,246,0.25);
-  }
-  .phase-tag.fasa2 {
-    color: var(--gold);
-    background: rgba(245,200,66,0.08);
-    border: 1px solid rgba(245,200,66,0.25);
-  }
+  .phase-tag.fasa1 { color: var(--bright); background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); }
+  .phase-tag.fasa2 { color: var(--gold); background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.25); }
 
-  .nafas-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 8px;
-    margin-bottom: 40px;
-  }
-  .nafas-table thead th {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 0 16px 8px;
-    text-align: left;
-    border-bottom: 1px solid var(--line);
-  }
-  .nafas-table tbody tr {
-    background: linear-gradient(135deg, rgba(10,30,74,0.6) 0%, rgba(5,15,44,0.7) 100%);
-    border: 1px solid var(--line);
-    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-    animation: rowFade 0.5s ease forwards;
-    opacity: 0;
-  }
-  .nafas-table tbody tr:hover {
-    background: linear-gradient(135deg, rgba(26,95,216,0.2) 0%, rgba(10,30,74,0.9) 100%);
-    transform: translateX(4px);
-    box-shadow: -4px 0 0 var(--bright), 0 4px 20px rgba(26,95,216,0.2);
-  }
-  .nafas-table tbody td {
-    padding: 14px 16px;
-    font-size: 14px;
-    color: var(--white);
-    vertical-align: middle;
-  }
-  .nafas-table tbody td:first-child {
-    border-radius: 10px 0 0 10px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    width: 40px;
-  }
+  .nafas-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-bottom: 40px; }
+  .nafas-table thead th { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 16px 8px; text-align: left; border-bottom: 1px solid var(--line); }
+  .nafas-table tbody tr { background: linear-gradient(135deg, rgba(10,30,74,0.6) 0%, rgba(5,15,44,0.7) 100%); border: 1px solid var(--line); transition: transform 0.3s, background 0.3s, box-shadow 0.3s; animation: rowFade 0.5s ease forwards; opacity: 0; }
+  .nafas-table tbody tr:hover { background: linear-gradient(135deg, rgba(26,95,216,0.2) 0%, rgba(10,30,74,0.9) 100%); transform: translateX(4px); box-shadow: -4px 0 0 var(--bright), 0 4px 20px rgba(26,95,216,0.2); }
+  .nafas-table tbody td { padding: 14px 16px; font-size: 14px; color: var(--white); vertical-align: middle; }
+  .nafas-table tbody td:first-child { border-radius: 10px 0 0 10px; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); width: 40px; }
   .nafas-table tbody td:last-child { border-radius: 0 10px 10px 0; }
 
   .loc-name { font-weight: 500; }
-  .state-chip {
-    display: inline-block;
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 10px; border-radius: 20px;
-    background: rgba(26,95,216,0.15);
-    border: 1px solid rgba(59,130,246,0.2);
-    color: var(--sky);
-  }
+  .state-chip { display: inline-block; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; background: rgba(26,95,216,0.15); border: 1px solid rgba(59,130,246,0.2); color: var(--sky); }
   .date-old { color: var(--muted); font-family: 'Space Mono', monospace; font-size: 11px; text-decoration: line-through; }
-  .date-new {
-    color: var(--gold);
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-  }
+  .date-new { color: var(--gold); font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; }
   .date-new::before { content: '→ '; color: var(--bright); }
 
-  .online-card {
-    background: linear-gradient(135deg, rgba(13,45,110,0.4), rgba(5,15,44,0.9));
-    border: 1px solid rgba(59,130,246,0.2);
-    border-radius: 14px;
-    padding: 24px 28px;
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
-    margin-top: 8px;
-  }
-  .online-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sky);
-    background: rgba(59,130,246,0.1);
-    border: 1px solid rgba(59,130,246,0.2);
-    border-radius: 6px;
-    padding: 4px 10px;
-  }
-  .online-dates {
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-  }
+  .online-card { background: linear-gradient(135deg, rgba(13,45,110,0.4), rgba(5,15,44,0.9)); border: 1px solid rgba(59,130,246,0.2); border-radius: 14px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 8px; }
+  .online-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sky); background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 6px; padding: 4px 10px; }
+  .online-dates { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .online-from { color: var(--muted); font-family: 'Space Mono', monospace; font-size: 12px; text-decoration: line-through; }
   .arrow-icon { color: var(--bright); font-size: 18px; }
   .online-to { color: var(--gold); font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; }
 
-  /* FOOTER */
-  .footer {
-    position: relative; z-index: 2;
-    text-align: center;
-    padding: 60px 40px;
-    border-top: 1px solid var(--line);
-    margin-top: 40px;
-  }
-  .footer-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 700;
-    background: linear-gradient(135deg, var(--bright), var(--sky));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-  }
-  .footer-sub {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
+  .shopee-link-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #ee4d2d, #f5793a); color: white; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
+  .shopee-link-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(238,77,45,0.4); }
 
-  /* ANIMATIONS */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes rowFade {
-    from { opacity: 0; transform: translateX(-20px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
+  .footer { position: relative; z-index: 2; text-align: center; padding: 60px 40px; border-top: 1px solid var(--line); margin-top: 40px; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, var(--bright), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+  .footer-sub { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes rowFade { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Fixed height image cards */
+  .card-img-fixed { height: 240px; }
+  .shopee-img-fixed { height: 440px; }
 </style>
 </head>
 <body>
 
 <canvas id="stars-canvas"></canvas>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
@@ -583,16 +286,10 @@
   </div>
 
   <div class="card-grid">
-    <!-- Image 1 placeholder: Segi Value Holdings -->
+    <!-- Card 1: 1.jpg -->
     <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap" style="border-radius:12px 12px 0 0;border:none">
-        <div class="img-placeholder" style="min-height: 240px;">
-          <div class="placeholder-content">
-            <div class="placeholder-icon">🖼️</div>
-            <div class="placeholder-text">IMAGE 1</div>
-            <div class="placeholder-badge">Segi Value Holdings</div>
-          </div>
-        </div>
+      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
+        <img src="1.jpg" alt="Segi Value Holdings">
         <div class="img-overlay">Segi Value Holdings</div>
       </div>
       <div style="padding:20px 24px">
@@ -602,16 +299,10 @@
       </div>
     </div>
 
-    <!-- Image 2 placeholder: Kaisar Farmasi exterior -->
+    <!-- Card 2: 2.jpg -->
     <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap" style="border-radius:12px 12px 0 0;border:none">
-        <div class="img-placeholder" style="min-height: 240px;">
-          <div class="placeholder-content">
-            <div class="placeholder-icon">🖼️</div>
-            <div class="placeholder-text">IMAGE 2</div>
-            <div class="placeholder-badge">Kaisar Farmasi — Exterior</div>
-          </div>
-        </div>
+      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
+        <img src="2.jpg" alt="Kaisar Farmasi Exterior">
         <div class="img-overlay">Kaisar Farmasi — Exterior</div>
       </div>
       <div style="padding:20px 24px">
@@ -621,16 +312,10 @@
       </div>
     </div>
 
-    <!-- Image 3 placeholder: Kaisar Farmasi interior -->
+    <!-- Card 3: 3.jpg -->
     <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap" style="border-radius:12px 12px 0 0;border:none">
-        <div class="img-placeholder" style="min-height: 240px;">
-          <div class="placeholder-content">
-            <div class="placeholder-icon">🖼️</div>
-            <div class="placeholder-text">IMAGE 3</div>
-            <div class="placeholder-badge">Kaisar Farmasi — Interior</div>
-          </div>
-        </div>
+      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
+        <img src="3.jpg" alt="Kaisar Farmasi Interior">
         <div class="img-overlay">Kaisar Farmasi — Interior</div>
       </div>
       <div style="padding:20px 24px">
@@ -641,16 +326,10 @@
     </div>
   </div>
 
-  <!-- Shopee block with Image 4 placeholder -->
+  <!-- Shopee block with 4.PNG -->
   <div class="shopee-img-wrap">
-    <div class="img-wrap">
-      <div class="img-placeholder" style="min-height: 440px;">
-        <div class="placeholder-content">
-          <div class="placeholder-icon">📱</div>
-          <div class="placeholder-text">IMAGE 4</div>
-          <div class="placeholder-badge">HydrateMax Shopee Listing</div>
-        </div>
-      </div>
+    <div class="img-wrap shopee-img-fixed">
+      <img src="4.PNG" alt="HydrateMax Shopee Listing">
       <div class="img-overlay">🛍 Shopee · KoIKMa Mart · Selangor</div>
     </div>
     <div>
@@ -674,8 +353,6 @@
   </div>
 </section>
 
-<div class="sep"></div>
-
 <!-- PROGRAM NAFAS SECTION -->
 <section class="section reveal">
   <div class="section-header">
@@ -684,13 +361,10 @@
     <h2 class="section-title">Program <span>NAFAS</span></h2>
   </div>
 
-  <!-- Fasa 1 -->
   <div class="phase-tag fasa1">⬡ Fasa 1 — Nationwide Rollout</div>
   <table class="nafas-table">
-    <thead>
-      <tr><th>#</th><th>Location</th><th>State</th><th>Date Update</th></tr>
-    </thead>
-    <tbody id="fasa1-body">
+    <thead><tr><th>#</th><th>Location</th><th>State</th><th>Date Update</th></tr></thead>
+    <tbody>
       <tr><td>01</td><td class="loc-name">Grandis Kota Kinabalu</td><td><span class="state-chip">Sabah</span></td><td><span class="date-old">19-05-26</span>&ensp;<span class="date-new">30-06-26</span></td></tr>
       <tr><td>02</td><td class="loc-name">Bayview Hotel Melaka</td><td><span class="state-chip">Melaka</span></td><td><span class="date-old">12-05-26</span>&ensp;<span class="date-new">14-07-26</span></td></tr>
       <tr><td>03</td><td class="loc-name">Grand Dorsett Labuan</td><td><span class="state-chip">Labuan</span></td><td><span class="date-old">09-06-26</span>&ensp;<span class="date-new">28-07-26</span></td></tr>
@@ -703,7 +377,6 @@
     </tbody>
   </table>
 
-  <!-- Fasa 2 -->
   <div class="phase-tag fasa2">⬡ Fasa 2 — Extended Coverage</div>
   <table class="nafas-table">
     <thead><tr><th>#</th><th>Location</th><th>State</th><th>Date Update</th></tr></thead>
@@ -726,7 +399,6 @@
 </footer>
 
 <script>
-  // Stars animation
   const canvas = document.getElementById('stars-canvas');
   const ctx = canvas.getContext('2d');
   let stars = [];
@@ -737,96 +409,59 @@
     stars = [];
     const n = Math.floor((canvas.width * canvas.height) / 6000);
     for (let i = 0; i < n; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.2 + 0.2,
-        a: Math.random(),
-        speed: Math.random() * 0.3 + 0.05,
-        drift: (Math.random() - 0.5) * 0.1
-      });
+      stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2+0.2, a: Math.random(), speed: Math.random()*0.3+0.05, drift: (Math.random()-0.5)*0.1 });
     }
   }
   initStars();
-  function drawStars(t) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function drawStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     stars.forEach(s => {
-      s.a += s.speed * 0.01;
-      s.x += s.drift;
+      s.a += s.speed*0.01; s.x += s.drift;
       if (s.x < 0) s.x = canvas.width;
       if (s.x > canvas.width) s.x = 0;
-      const alpha = (Math.sin(s.a) * 0.5 + 0.5) * 0.7 + 0.1;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(96,165,250,${alpha})`;
-      ctx.fill();
+      const alpha = (Math.sin(s.a)*0.5+0.5)*0.7+0.1;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(96,165,250,${alpha})`; ctx.fill();
     });
     requestAnimationFrame(drawStars);
   }
   requestAnimationFrame(drawStars);
 
-  // Shooting stars effect
   function shootStar() {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * (canvas.height * 0.5);
-    const len = 80 + Math.random() * 120;
-    const angle = Math.PI / 4;
-    const dur = 600 + Math.random() * 400;
-    const start = performance.now();
+    const x = Math.random()*canvas.width, y = Math.random()*(canvas.height*0.5);
+    const len = 80+Math.random()*120, angle = Math.PI/4, dur = 600+Math.random()*400, start = performance.now();
     function frame(now) {
-      const p = Math.min((now - start) / dur, 1);
-      const ex = x + Math.cos(angle) * len * p;
-      const ey = y + Math.sin(angle) * len * p;
-      const alpha = p < 0.5 ? p * 2 : (1 - p) * 2;
-      ctx.save();
-      ctx.globalAlpha = alpha * 0.8;
-      const grad = ctx.createLinearGradient(x, y, ex, ey);
-      grad.addColorStop(0, 'rgba(96,165,250,0)');
-      grad.addColorStop(1, 'rgba(200,220,255,0.9)');
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(ex, ey);
-      ctx.stroke();
-      ctx.restore();
-      if (p < 1) requestAnimationFrame(frame);
+      const p = Math.min((now-start)/dur,1);
+      const ex = x+Math.cos(angle)*len*p, ey = y+Math.sin(angle)*len*p;
+      const alpha = p<0.5?p*2:(1-p)*2;
+      ctx.save(); ctx.globalAlpha = alpha*0.8;
+      const grad = ctx.createLinearGradient(x,y,ex,ey);
+      grad.addColorStop(0,'rgba(96,165,250,0)'); grad.addColorStop(1,'rgba(200,220,255,0.9)');
+      ctx.strokeStyle = grad; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(ex,ey); ctx.stroke(); ctx.restore();
+      if (p<1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
   }
-  setInterval(shootStar, 2800);
+  setInterval(shootStar,2800);
 
-  // Scroll reveal animations
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   reveals.forEach(r => obs.observe(r));
 
-  // Table row fade-in on scroll
   const rows = document.querySelectorAll('.nafas-table tbody tr');
   const rowObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.animationPlayState = 'running';
-        rowObs.unobserve(e.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState='running'; rowObs.unobserve(e.target); } });
   }, { threshold: 0.1 });
-  rows.forEach(r => {
-    r.style.animationPlayState = 'paused';
-    rowObs.observe(r);
-  });
+  rows.forEach(r => { r.style.animationPlayState='paused'; rowObs.observe(r); });
 
-  // Parallax floating orbs
   document.addEventListener('mousemove', e => {
-    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-    const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
-    document.querySelectorAll('.hero-orb').forEach((o, i) => {
-      const s = (i + 1) * 15;
-      o.style.transform = `translate(${dx * s}px, ${dy * s}px)`;
+    const cx = window.innerWidth/2, cy = window.innerHeight/2;
+    const dx = (e.clientX-cx)/cx, dy = (e.clientY-cy)/cy;
+    document.querySelectorAll('.hero-orb').forEach((o,i) => {
+      const s=(i+1)*15; o.style.transform=`translate(${dx*s}px,${dy*s}px)`;
     });
   });
 </script>
