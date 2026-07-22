@@ -3,547 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KOIKMA Meeting — 4 June 2026</title>
+<title>KolKMa</title>
+<meta name="description" content="KolKMa — bringing people together.">
+<link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:       #020818;
-    --deep:       #050f2c;
-    --mid:        #0a1e4a;
-    --royal:      #0d2d6e;
-    --accent:     #1a5fd8;
-    --bright:     #3b82f6;
-    --sky:        #60a5fa;
-    --gold:       #f5c842;
-    --gold-dim:   #b89a2b;
-    --white:      #f0f4ff;
-    --muted:      #8ba3cc;
-    --line:       rgba(59,130,246,0.18);
-    --glow:       rgba(59,130,246,0.35);
+  :root{
+    --navy:#0B1F4D;
+    --red:#E01F26;
+    --blue:#1450E0;
+    --paper:#FAFAF8;
+    --ink-soft:#5A6478;
+    --line: rgba(11,31,77,0.10);
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--navy);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
   }
 
-  .img-wrap {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    position: relative;
-    background: rgba(5,15,44,0.5);
-    transition: box-shadow 0.4s, border-color 0.4s;
-  }
-  .img-wrap:hover { border-color: rgba(59,130,246,0.4); box-shadow: 0 12px 40px rgba(26,95,216,0.2); }
-  .img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-  }
-  .img-wrap:hover img { transform: scale(1.02); }
-  .img-overlay {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 10px 16px;
-    background: linear-gradient(to top, rgba(2,8,24,0.85), transparent);
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: 0.15em;
-    color: var(--sky); text-transform: uppercase;
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px 6vw;
+    z-index:10;
+    mix-blend-mode:normal;
   }
 
-  .shopee-img-wrap {
-    display: grid;
-    grid-template-columns: 399px 1fr;
-    gap: 24px;
-    align-items: start;
-    margin-top: 24px;
-  }
-  @media (max-width: 750px) {
-    .shopee-img-wrap { grid-template-columns: 1fr; }
-  }
-
-  #stars-canvas {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0;
+  .nav-mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1.1rem;
+    letter-spacing:0.02em;
   }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none; z-index: 1;
+  .nav-mark img{
+    width:28px;
+    height:28px;
   }
 
-  .hero {
-    position: relative; z-index: 2;
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 80px 40px;
-    overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(13,45,110,0.6) 0%, transparent 70%);
-    pointer-events: none;
+  .nav-links{
+    display:flex;
+    gap:2.4rem;
+    font-size:0.9rem;
+    color:var(--ink-soft);
   }
 
-  .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
-  .orb1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(26,95,216,0.18) 0%, transparent 70%); top: -100px; left: -100px; animation: orbFloat1 12s ease-in-out infinite; }
-  .orb2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%); bottom: -50px; right: -50px; animation: orbFloat2 15s ease-in-out infinite; }
-  .orb3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%); top: 30%; right: 10%; animation: orbFloat3 18s ease-in-out infinite; }
-
-  @keyframes orbFloat1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,30px)} }
-  @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,-20px)} }
-  @keyframes orbFloat3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,25px)} }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 10px;
-    border: 1px solid rgba(59,130,246,0.3);
-    background: rgba(26,95,216,0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 40px;
-    padding: 8px 22px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--sky);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    position: relative; z-index: 3;
-    animation: fadeDown 0.8s ease forwards;
-    opacity: 0;
-    animation-delay: 0.2s;
-  }
-  .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); animation: pulse 2s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
-
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px; letter-spacing: 0.3em;
-    color: var(--gold); text-transform: uppercase;
-    margin-bottom: 16px;
-    position: relative; z-index: 3;
-    animation: fadeDown 0.8s ease forwards; opacity: 0; animation-delay: 0.4s;
+  .nav-links a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    position:relative;
+    transition:color 0.25s ease;
   }
 
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(56px, 10vw, 120px);
-    font-weight: 700; line-height: 0.9;
-    position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.5s;
-  }
-  .hero-title .line1 { display: block; color: var(--white); }
-  .hero-title .line2 {
-    display: block;
-    background: linear-gradient(135deg, var(--bright) 0%, var(--sky) 50%, var(--gold) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-4px;
+    width:0%;
+    height:1px;
+    background:var(--navy);
+    transition:width 0.25s ease;
   }
 
-  .hero-sub {
-    font-size: 15px; color: var(--muted); margin-top: 24px;
-    position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.7s; letter-spacing: 0.05em;
+  .nav-links a:hover{ color:var(--navy); }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:0 6vw;
   }
 
-  .hero-divider {
-    display: flex; align-items: center; gap: 16px;
-    margin: 40px auto 0; width: 200px;
-    position: relative; z-index: 3;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.9s;
-  }
-  .hero-divider::before, .hero-divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--accent)); }
-  .hero-divider::after { background: linear-gradient(90deg, var(--accent), transparent); }
-  .hero-divider span { font-size: 16px; color: var(--gold); }
-
-  .scroll-hint {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 3;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 1.2s;
-  }
-  .scroll-hint span { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.2em; }
-  .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--bright), transparent); animation: scrollDrop 2s ease-in-out infinite; }
-  @keyframes scrollDrop {
-    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
-    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  .orbit-field{
+    position:absolute;
+    top:50%; left:50%;
+    width:min(720px, 92vw);
+    height:min(720px, 92vw);
+    transform:translate(-50%,-52%);
+    pointer-events:none;
   }
 
-  .section { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 80px 40px; }
-  .section-header { display: flex; align-items: center; gap: 20px; margin-bottom: 48px; }
-  .section-number { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--bright); letter-spacing: 0.2em; opacity: 0.6; }
-  .section-line { flex: 0 0 40px; height: 1px; background: var(--line); }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 48px); font-weight: 600; color: var(--white); }
-  .section-title span { background: linear-gradient(135deg, var(--bright), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
-  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px; }
-
-  .card {
-    background: linear-gradient(135deg, rgba(10,30,74,0.8) 0%, rgba(5,15,44,0.9) 100%);
-    border: 1px solid var(--line); border-radius: 16px; padding: 28px;
-    position: relative; overflow: hidden;
-    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  .orbit-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:1px solid var(--line);
   }
-  .card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,95,216,0.08) 0%, transparent 60%); opacity: 0; transition: opacity 0.4s; }
-  .card:hover { transform: translateY(-6px); border-color: rgba(59,130,246,0.4); box-shadow: 0 20px 60px rgba(26,95,216,0.25); }
-  .card:hover::before { opacity: 1; }
+  .orbit-ring.r2{ inset:9%; }
+  .orbit-ring.r3{ inset:18%; }
 
-  .card-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--sky); text-transform: uppercase; margin-bottom: 8px; }
-  .card-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); line-height: 1.3; }
-  .card-date { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--gold); margin-top: 8px; }
-
-  .phase-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.15em;
-    text-transform: uppercase; padding: 6px 16px; border-radius: 30px; margin-bottom: 24px;
+  .logo-wrap{
+    position:relative;
+    width:min(220px, 34vw);
+    height:min(220px, 34vw);
+    margin-bottom:2.6rem;
   }
-  .phase-tag.fasa1 { color: var(--bright); background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); }
-  .phase-tag.fasa2 { color: var(--gold); background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.25); }
 
-  .nafas-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-bottom: 40px; }
-  .nafas-table thead th { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 16px 8px; text-align: left; border-bottom: 1px solid var(--line); }
-  .nafas-table tbody tr { background: linear-gradient(135deg, rgba(10,30,74,0.6) 0%, rgba(5,15,44,0.7) 100%); border: 1px solid var(--line); transition: transform 0.3s, background 0.3s, box-shadow 0.3s; animation: rowFade 0.5s ease forwards; opacity: 0; }
-  .nafas-table tbody tr:hover { background: linear-gradient(135deg, rgba(26,95,216,0.2) 0%, rgba(10,30,74,0.9) 100%); transform: translateX(4px); box-shadow: -4px 0 0 var(--bright), 0 4px 20px rgba(26,95,216,0.2); }
-  .nafas-table tbody td { padding: 14px 16px; font-size: 14px; color: var(--white); vertical-align: middle; }
-  .nafas-table tbody td:first-child { border-radius: 10px 0 0 10px; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); width: 40px; }
-  .nafas-table tbody td:last-child { border-radius: 0 10px 10px 0; }
+  .logo-spin{
+    width:100%;
+    height:100%;
+    animation:spin 14s linear infinite;
+    filter:drop-shadow(0 18px 34px rgba(11,31,77,0.16));
+    will-change:transform;
+  }
 
-  .loc-name { font-weight: 500; }
-  .state-chip { display: inline-block; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; background: rgba(26,95,216,0.15); border: 1px solid rgba(59,130,246,0.2); color: var(--sky); }
-  .date-old { color: var(--muted); font-family: 'Space Mono', monospace; font-size: 11px; text-decoration: line-through; }
-  .date-new { color: var(--gold); font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; }
-  .date-new::before { content: '→ '; color: var(--bright); }
+  @keyframes spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
 
-  .online-card { background: linear-gradient(135deg, rgba(13,45,110,0.4), rgba(5,15,44,0.9)); border: 1px solid rgba(59,130,246,0.2); border-radius: 14px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: 8px; }
-  .online-tag { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sky); background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); border-radius: 6px; padding: 4px 10px; }
-  .online-dates { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .online-from { color: var(--muted); font-family: 'Space Mono', monospace; font-size: 12px; text-decoration: line-through; }
-  .arrow-icon { color: var(--bright); font-size: 18px; }
-  .online-to { color: var(--gold); font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; }
+  .logo-glow{
+    position:absolute;
+    inset:-14%;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(224,31,38,0.10) 0%, rgba(20,80,224,0.08) 45%, rgba(255,255,255,0) 72%);
+    z-index:-1;
+  }
 
-  .shopee-link-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #ee4d2d, #f5793a); color: white; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 8px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
-  .shopee-link-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(238,77,45,0.4); }
+  .eyebrow{
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:1.1rem;
+  }
 
-  .footer { position: relative; z-index: 2; text-align: center; padding: 60px 40px; border-top: 1px solid var(--line); margin-top: 40px; }
-  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, var(--bright), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
-  .footer-sub { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .eyebrow span{ color:var(--red); }
 
-  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes rowFade { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(2.6rem, 7vw, 5.4rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+  }
 
-  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  h1 .accent-blue{ color:var(--blue); }
+  h1 .accent-red{ color:var(--red); }
 
-  /* Fixed height image cards */
-  .card-img-fixed { height: 240px; }
-  .shopee-img-fixed { height: 440px; }
+  .tagline{
+    max-width:520px;
+    margin:1.6rem auto 0;
+    font-size:1.05rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+
+  .cta-row{
+    display:flex;
+    gap:1rem;
+    margin-top:2.6rem;
+  }
+
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-size:0.92rem;
+    font-weight:500;
+    padding:0.9rem 1.8rem;
+    border-radius:999px;
+    text-decoration:none;
+    transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    display:inline-block;
+  }
+
+  .btn-primary{
+    background:var(--navy);
+    color:#fff;
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(11,31,77,0.25);
+  }
+
+  .btn-ghost{
+    color:var(--navy);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{
+    border-color:var(--navy);
+    transform:translateY(-2px);
+  }
+
+  .scroll-hint{
+    position:absolute;
+    bottom:2.6rem;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.5rem;
+  }
+
+  .scroll-hint::after{
+    content:"";
+    width:1px;
+    height:34px;
+    background:linear-gradient(var(--ink-soft), transparent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:0.3; }
+    50%{ opacity:1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .logo-spin{ animation:none; }
+    .scroll-hint::after{ animation:none; }
+  }
+
+  @media (max-width:640px){
+    .nav-links{ display:none; }
+  }
 </style>
 </head>
 <body>
 
-<canvas id="stars-canvas"></canvas>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-orb orb1"></div>
-  <div class="hero-orb orb2"></div>
-  <div class="hero-orb orb3"></div>
-  <div class="hero-badge"><div class="badge-dot"></div> KOIKMA Internal Briefing</div>
-  <div class="hero-eyebrow">4 June 2026 &nbsp;·&nbsp; Quarterly Review</div>
-  <h1 class="hero-title">
-    <span class="line1">KOIKMA</span>
-    <span class="line2">Meeting</span>
-  </h1>
-  <p class="hero-sub">Strategic Updates &nbsp;·&nbsp; Program NAFAS &nbsp;·&nbsp; HydrateMax Distribution</p>
-  <div class="hero-divider"><span>✦</span></div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-arrow"></div>
+<nav>
+  <div class="nav-mark">
+    <img src="assets/logo.png" alt="KolKMa logo">
+    KolKMa
   </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="orbit-field" aria-hidden="true">
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring r2"></div>
+    <div class="orbit-ring r3"></div>
+  </div>
+
+  <div class="eyebrow">People <span>&times;</span> Purpose <span>&times;</span> Progress</div>
+
+  <div class="logo-wrap">
+    <div class="logo-glow"></div>
+    <img class="logo-spin" src="assets/logo.png" alt="KolKMa spinning logo">
+  </div>
+
+  <h1>We bring people <br> <span class="accent-blue">together</span> to <span class="accent-red">build</span>.</h1>
+
+  <p class="tagline">
+    KolKMa connects the people behind every idea — turning collaboration
+    into momentum, one project at a time.
+  </p>
+
+  <div class="cta-row">
+    <a href="#work" class="btn btn-primary">See our work</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
 </section>
 
-<!-- HYDRATEMAX SECTION -->
-<section class="section reveal">
-  <div class="section-header">
-    <span class="section-number">01 —</span>
-    <div class="section-line"></div>
-    <h2 class="section-title"><span>HydrateMax</span> — Submission & Product</h2>
-  </div>
-
-  <div class="card-grid">
-    <!-- Card 1: 1.jpg -->
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
-        <img src="1.jpg" alt="Segi Value Holdings">
-        <div class="img-overlay">Segi Value Holdings</div>
-      </div>
-      <div style="padding:20px 24px">
-        <div class="card-label">Submission Sample</div>
-        <div class="card-value">Segi Fresh</div>
-        <div class="card-date">📅 11 May 2026</div>
-      </div>
-    </div>
-
-    <!-- Card 2: 2.jpg -->
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
-        <img src="2.jpg" alt="Kaisar Farmasi Exterior">
-        <div class="img-overlay">Kaisar Farmasi — Exterior</div>
-      </div>
-      <div style="padding:20px 24px">
-        <div class="card-label">Submission Sample</div>
-        <div class="card-value">Kaisar Pharmacy</div>
-        <div class="card-date">📅 26 May 2026</div>
-      </div>
-    </div>
-
-    <!-- Card 3: 3.jpg -->
-    <div class="card" style="padding:0;overflow:hidden">
-      <div class="img-wrap card-img-fixed" style="border-radius:12px 12px 0 0;border:none">
-        <img src="3.jpg" alt="Kaisar Farmasi Interior">
-        <div class="img-overlay">Kaisar Farmasi — Interior</div>
-      </div>
-      <div style="padding:20px 24px">
-        <div class="card-label">Office Supply</div>
-        <div class="card-value">2 CTN</div>
-        <div class="card-date">📅 26 May 2026</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Shopee block with 4.PNG -->
-  <div class="shopee-img-wrap">
-    <div class="img-wrap shopee-img-fixed">
-      <img src="4.PNG" alt="HydrateMax Shopee Listing">
-      <div class="img-overlay">🛍 Shopee · KoIKMa Mart · Selangor</div>
-    </div>
-    <div>
-      <div class="card-label" style="color:var(--muted);margin-bottom:12px">HydrateMax — New Listing</div>
-      <div style="background:linear-gradient(135deg,rgba(10,30,74,0.8),rgba(5,15,44,0.95));border:1px solid var(--line);border-radius:14px;padding:22px">
-        <div style="font-family:Cormorant Garamond,serif;font-size:28px;font-weight:700;background:linear-gradient(135deg,#3b82f6,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px">HydrateMax</div>
-        <div style="font-family:Space Mono,monospace;font-size:10px;color:var(--muted);letter-spacing:0.15em;margin-bottom:16px">IONIZE ALKALINE WATER</div>
-        <div style="font-size:13px;color:var(--white);line-height:2">
-          <div><span style="color:var(--gold)">✦</span> Seller: <strong>KoIKMa Mart</strong></div>
-          <div><span style="color:var(--gold)">✦</span> Price: <span style="color:var(--gold);font-weight:600">RM 0.70</span> after voucher</div>
-          <div><span style="color:var(--gold)">✦</span> Free Shipping — 6.6 Promo</div>
-          <div><span style="color:var(--gold)">✦</span> Cash on Delivery available</div>
-          <div><span style="color:var(--gold)">✦</span> SPayLater: RM200 Voucher Bundle</div>
-          <div><span style="color:var(--gold)">✦</span> Get by: <strong>5–6 Jun</strong></div>
-        </div>
-      </div>
-      <a class="shopee-link-btn" style="margin-top:16px;display:inline-flex" href="https://shopee.com.my/Alkaline-Water-HydrateMax-i.1838118222.41731157714" target="_blank">
-        🔗 &nbsp;View HydrateMax on Shopee
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRAM NAFAS SECTION -->
-<section class="section reveal">
-  <div class="section-header">
-    <span class="section-number">02 —</span>
-    <div class="section-line"></div>
-    <h2 class="section-title">Program <span>NAFAS</span></h2>
-  </div>
-
-  <div class="phase-tag fasa1">⬡ Fasa 1 — Nationwide Rollout</div>
-  <table class="nafas-table">
-    <thead><tr><th>#</th><th>Location</th><th>State</th><th>Date Update</th></tr></thead>
-    <tbody>
-      <tr><td>01</td><td class="loc-name">Grandis Kota Kinabalu</td><td><span class="state-chip">Sabah</span></td><td><span class="date-old">19-05-26</span>&ensp;<span class="date-new">30-06-26</span></td></tr>
-      <tr><td>02</td><td class="loc-name">Bayview Hotel Melaka</td><td><span class="state-chip">Melaka</span></td><td><span class="date-old">12-05-26</span>&ensp;<span class="date-new">14-07-26</span></td></tr>
-      <tr><td>03</td><td class="loc-name">Grand Dorsett Labuan</td><td><span class="state-chip">Labuan</span></td><td><span class="date-old">09-06-26</span>&ensp;<span class="date-new">28-07-26</span></td></tr>
-      <tr><td>04</td><td class="loc-name">Klana Resort Seremban</td><td><span class="state-chip">N. Sembilan</span></td><td><span class="date-old">30-06-26</span>&ensp;<span class="date-new">04-08-26</span></td></tr>
-      <tr><td>05</td><td class="loc-name">The Regency Hotel Perlis</td><td><span class="state-chip">Perlis</span></td><td><span class="date-old">14-07-26</span>&ensp;<span class="date-new">18-08-26</span></td></tr>
-      <tr><td>06</td><td class="loc-name">Ixora Hotel Penang</td><td><span class="state-chip">Penang</span></td><td><span class="date-old">28-07-26</span>&ensp;<span class="date-new">08-09-26</span></td></tr>
-      <tr><td>07</td><td class="loc-name">Raia Hotel & Convention Centre Kuching</td><td><span class="state-chip">Sarawak</span></td><td><span class="date-old">04-08-26</span>&ensp;<span class="date-new">22-09-26</span></td></tr>
-      <tr><td>08</td><td class="loc-name">Raia Hotel Kuala Terengganu</td><td><span class="state-chip">Terengganu</span></td><td><span class="date-old">18-08-26</span>&ensp;<span class="date-new">06-10-26</span></td></tr>
-      <tr><td>09</td><td class="loc-name">Renai Hotel Kota Bharu</td><td><span class="state-chip">Kelantan</span></td><td><span class="date-old">08-09-26</span>&ensp;<span class="date-new">20-10-26</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="phase-tag fasa2">⬡ Fasa 2 — Extended Coverage</div>
-  <table class="nafas-table">
-    <thead><tr><th>#</th><th>Location</th><th>State</th><th>Date Update</th></tr></thead>
-    <tbody>
-      <tr><td>01</td><td class="loc-name">The Katerina Hotel Johor</td><td><span class="state-chip" style="color:var(--gold);background:rgba(245,200,66,0.08);border-color:rgba(245,200,66,0.2)">Johor</span></td><td><span class="date-old">22-09-26</span>&ensp;<span class="date-new">03-11-26</span></td></tr>
-      <tr><td>02</td><td class="loc-name">De Palma Resort Kuala Selangor</td><td><span class="state-chip" style="color:var(--gold);background:rgba(245,200,66,0.08);border-color:rgba(245,200,66,0.2)">Selangor</span></td><td><span class="date-old">06-10-26</span>&ensp;<span class="date-new">10-11-26</span></td></tr>
-      <tr><td>03</td><td class="loc-name">The Jerai Alor Setar</td><td><span class="state-chip" style="color:var(--gold);background:rgba(245,200,66,0.08);border-color:rgba(245,200,66,0.2)">Kedah</span></td><td><span class="date-old">20-10-26</span>&ensp;<span class="date-new">24-11-26</span></td></tr>
-    </tbody>
-  </table>
-
-  <div class="online-card">
-    <div><div class="online-tag">🌐 Kursus Online — Fasa 2</div></div>
-    <div class="online-dates"><span class="online-from">13-10-26</span><span class="arrow-icon">→</span><span class="online-to">27 Oktober 2026</span></div>
-  </div>
-</section>
-
-<!-- PERMOHONAN ELAUN AIDILFITRI SECTION -->
-<section class="section reveal">
-  <div class="section-header">
-    <span class="section-number">03 —</span>
-    <div class="section-line"></div>
-    <h2 class="section-title">Permohonan <span>Elaun Aidilfitri</span></h2>
-  </div>
-
-  <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--line)">
-    <table style="width:100%;border-collapse:collapse;font-size:13px">
-      <thead>
-        <tr style="background:linear-gradient(135deg,rgba(26,95,216,0.3),rgba(13,45,110,0.5));border-bottom:1px solid rgba(59,130,246,0.3)">
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:center;width:40px">#</th>
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:left">Item Name</th>
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:center">Category</th>
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:center">Items Sold</th>
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:right">Gross Sales (RM)</th>
-          <th style="padding:14px 16px;font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--sky);text-align:right">Nett Profit (RM)</th>
-        </tr>
-      </thead>
-      <tbody id="elaun-body">
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">01</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Bangkit Kelapa Kampung</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">10</td><td style="padding:11px 16px;text-align:right;color:var(--white)">212.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">38.04</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">02</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Bangkit Santan Original</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">8</td><td style="padding:11px 16px;text-align:right;color:var(--white)">160.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">31.25</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">03</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Cornflake Nestum</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">5</td><td style="padding:11px 16px;text-align:right;color:var(--white)">119.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">38.24</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">04</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Cornflakes Choc</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">4</td><td style="padding:11px 16px;text-align:right;color:var(--white)">81.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">21.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">05</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Dark Choc</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">7</td><td style="padding:11px 16px;text-align:right;color:var(--white)">175.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">49.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">06</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Kapit Choc</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">2</td><td style="padding:11px 16px;text-align:right;color:var(--white)">52.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">14.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">07</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Kapit Peanut</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">3</td><td style="padding:11px 16px;text-align:right;color:var(--white)">80.30</td><td style="padding:11px 16px;text-align:right;color:#4ade80">20.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">08</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Semperit Susu</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">4</td><td style="padding:11px 16px;text-align:right;color:var(--white)">95.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">31.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">09</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Semprit Susu</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">1</td><td style="padding:11px 16px;text-align:right;color:var(--white)">23.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">8.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">10</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Strawberry</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">2</td><td style="padding:11px 16px;text-align:right;color:var(--white)">50.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">12.74</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">11</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Tart Choc</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">3</td><td style="padding:11px 16px;text-align:right;color:var(--white)">60.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">15.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">12</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Raya Tart Nenas</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">10</td><td style="padding:11px 16px;text-align:right;color:var(--white)">227.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">52.25</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">13</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Biskut Sarang Semut</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">2</td><td style="padding:11px 16px;text-align:right;color:var(--white)">40.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">10.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">14</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kerepek Bawang Hitam</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">1</td><td style="padding:11px 16px;text-align:right;color:var(--white)">12.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">6.63</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">15</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kerepek Gunting Sira</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">3</td><td style="padding:11px 16px;text-align:right;color:var(--white)">75.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">15.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">16</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kerepek Pisang 300</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">12</td><td style="padding:11px 16px;text-align:right;color:var(--white)">160.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">59.20</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">17</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kerepek Pisang Tanduk</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">2</td><td style="padding:11px 16px;text-align:right;color:var(--white)">30.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">14.80</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">18</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kerepek Ubi Masin 500g</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">18</td><td style="padding:11px 16px;text-align:right;color:var(--white)">230.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">75.88</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">19</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kuah Sate 1.7kg</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">19</td><td style="padding:11px 16px;text-align:right;color:var(--white)">361.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">114.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">20</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kuah Sate 200g</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">21</td><td style="padding:11px 16px;text-align:right;color:var(--white)">105.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">36.75</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">21</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kuih Muih RM 3.00</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">79</td><td style="padding:11px 16px;text-align:right;color:var(--white)">237.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">39.50</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">22</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kuih Muih RM 3.50</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">112</td><td style="padding:11px 16px;text-align:right;color:var(--white)">377.50</td><td style="padding:11px 16px;text-align:right;color:#4ade80">96.50</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">23</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Kuih Muih RM 4.50</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">19</td><td style="padding:11px 16px;text-align:right;color:var(--white)">85.50</td><td style="padding:11px 16px;text-align:right;color:#4ade80">9.50</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">24</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Laksa</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">19</td><td style="padding:11px 16px;text-align:right;color:var(--white)">152.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">19.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">25</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Murtabak Ayam</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">26</td><td style="padding:11px 16px;text-align:right;color:var(--white)">169.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">39.00</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">26</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Murtabak Daging</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">75</td><td style="padding:11px 16px;text-align:right;color:var(--white)">487.50</td><td style="padding:11px 16px;text-align:right;color:#4ade80">111.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">27</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Puding Karemal</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">18</td><td style="padding:11px 16px;text-align:right;color:var(--white)">180.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">101.34</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">28</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Sate Ayam</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">1,270</td><td style="padding:11px 16px;text-align:right;color:var(--white)">1,905.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">887.80</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">29</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Sate Daging</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">880</td><td style="padding:11px 16px;text-align:right;color:var(--white)">1,496.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">662.40</td></tr>
-        <tr style="background:rgba(10,30,74,0.3)"><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">30</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Tepung Pelita</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">126</td><td style="padding:11px 16px;text-align:right;color:var(--white)">818.50</td><td style="padding:11px 16px;text-align:right;color:#4ade80">391.00</td></tr>
-        <tr><td style="padding:11px 16px;text-align:center;color:var(--muted);font-family:Space Mono,monospace;font-size:11px">31</td><td style="padding:11px 16px;color:var(--white);font-weight:500">Tortilla 400g</td><td style="padding:11px 16px;text-align:center"><span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:2px 10px;font-family:Space Mono,monospace;font-size:9px;color:var(--sky)">Makanan</span></td><td style="padding:11px 16px;text-align:center;color:var(--white)">7</td><td style="padding:11px 16px;text-align:right;color:var(--white)">100.00</td><td style="padding:11px 16px;text-align:right;color:#4ade80">44.00</td></tr>
-        <!-- TOTAL ROW -->
-        <tr style="background:linear-gradient(135deg,rgba(245,200,66,0.15),rgba(13,45,110,0.6));border-top:2px solid rgba(245,200,66,0.4)">
-          <td colspan="3" style="padding:16px 20px;font-family:Space Mono,monospace;font-size:12px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;font-weight:700">Total</td>
-          <td style="padding:16px 16px;text-align:center;color:var(--gold);font-family:Space Mono,monospace;font-weight:700;font-size:13px">—</td>
-          <td style="padding:16px 16px;text-align:right;color:var(--gold);font-family:Space Mono,monospace;font-weight:700;font-size:15px">8,355.30</td>
-          <td style="padding:16px 16px;text-align:right;color:#4ade80;font-family:Space Mono,monospace;font-weight:700;font-size:15px">3,063.82</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Gross Sales Highlight -->
-  <div style="margin-top:28px;background:linear-gradient(135deg,rgba(245,200,66,0.12),rgba(13,45,110,0.7));border:1px solid rgba(245,200,66,0.4);border-radius:16px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 0 40px rgba(245,200,66,0.1)">
-    <div>
-      <div style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">✦ Jumlah Gross Sales — Aidilfitri</div>
-      <div style="font-family:Cormorant Garamond,serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;letter-spacing:0.02em">RM 8,355.30</div>
-      <div style="font-family:Space Mono,monospace;font-size:11px;color:var(--muted);margin-top:8px">31 produk · Kategori Makanan</div>
-    </div>
-    <div style="text-align:right">
-      <div style="font-family:Space Mono,monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Nett Profit</div>
-      <div style="font-family:Cormorant Garamond,serif;font-size:32px;font-weight:700;color:#4ade80;line-height:1">RM 3,063.82</div>
-      <div style="margin-top:12px;background:rgba(245,200,66,0.15);border:1px solid rgba(245,200,66,0.3);border-radius:8px;padding:6px 16px;display:inline-block">
-        <span style="font-family:Space Mono,monospace;font-size:11px;color:var(--gold)">Margin: ~36.7%</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-logo">KOIKMA</div>
-  <div class="footer-sub">Internal Meeting Deck &nbsp;·&nbsp; 4 June 2026 &nbsp;·&nbsp; Confidential</div>
-</footer>
-
-<script>
-  const canvas = document.getElementById('stars-canvas');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  resizeCanvas();
-  window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
-  function initStars() {
-    stars = [];
-    const n = Math.floor((canvas.width * canvas.height) / 6000);
-    for (let i = 0; i < n; i++) {
-      stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2+0.2, a: Math.random(), speed: Math.random()*0.3+0.05, drift: (Math.random()-0.5)*0.1 });
-    }
-  }
-  initStars();
-  function drawStars() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    stars.forEach(s => {
-      s.a += s.speed*0.01; s.x += s.drift;
-      if (s.x < 0) s.x = canvas.width;
-      if (s.x > canvas.width) s.x = 0;
-      const alpha = (Math.sin(s.a)*0.5+0.5)*0.7+0.1;
-      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle = `rgba(96,165,250,${alpha})`; ctx.fill();
-    });
-    requestAnimationFrame(drawStars);
-  }
-  requestAnimationFrame(drawStars);
-
-  function shootStar() {
-    const x = Math.random()*canvas.width, y = Math.random()*(canvas.height*0.5);
-    const len = 80+Math.random()*120, angle = Math.PI/4, dur = 600+Math.random()*400, start = performance.now();
-    function frame(now) {
-      const p = Math.min((now-start)/dur,1);
-      const ex = x+Math.cos(angle)*len*p, ey = y+Math.sin(angle)*len*p;
-      const alpha = p<0.5?p*2:(1-p)*2;
-      ctx.save(); ctx.globalAlpha = alpha*0.8;
-      const grad = ctx.createLinearGradient(x,y,ex,ey);
-      grad.addColorStop(0,'rgba(96,165,250,0)'); grad.addColorStop(1,'rgba(200,220,255,0.9)');
-      ctx.strokeStyle = grad; ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(ex,ey); ctx.stroke(); ctx.restore();
-      if (p<1) requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
-  setInterval(shootStar,2800);
-
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  reveals.forEach(r => obs.observe(r));
-
-  const rows = document.querySelectorAll('.nafas-table tbody tr');
-  const rowObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState='running'; rowObs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  rows.forEach(r => { r.style.animationPlayState='paused'; rowObs.observe(r); });
-
-  document.addEventListener('mousemove', e => {
-    const cx = window.innerWidth/2, cy = window.innerHeight/2;
-    const dx = (e.clientX-cx)/cx, dy = (e.clientY-cy)/cy;
-    document.querySelectorAll('.hero-orb').forEach((o,i) => {
-      const s=(i+1)*15; o.style.transform=`translate(${dx*s}px,${dy*s}px)`;
-    });
-  });
-</script>
 </body>
 </html>
