@@ -3,589 +3,1118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KolKMa</title>
-<meta name="description" content="KolKMa — bringing people together.">
-<link rel="icon" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>KoIKMa – Koperasi Warga Institut Koperasi Malaysia Berhad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --navy:#0B1F4D;
-    --red:#E01F26;
-    --blue:#1450E0;
-    --paper:#FAFAF8;
-    --ink-soft:#5A6478;
-    --line: rgba(11,31,77,0.10);
-  }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html{ scroll-behavior:smooth; }
-
-  body{
-    background:var(--paper);
-    color:var(--navy);
-    font-family:'Manrope', sans-serif;
-    overflow-x:hidden;
-  }
-
-  ::selection{ background:var(--red); color:#fff; }
-
-  /* ---------- NAV ---------- */
-  nav{
-    position:fixed;
-    top:0; left:0; right:0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:28px 6vw;
-    z-index:50;
-    transition:background 0.35s ease, box-shadow 0.35s ease;
-  }
-
-  nav.on-video{
-    background:transparent;
-  }
-
-  nav.scrolled{
-    background:rgba(250,250,248,0.86);
-    backdrop-filter:blur(10px);
-    box-shadow:0 1px 0 var(--line);
-  }
-
-  .nav-mark{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family:'Unbounded', sans-serif;
-    font-weight:600;
-    font-size:1.05rem;
-    letter-spacing:0.01em;
-    color:#fff;
-    transition:color 0.35s ease, transform 0.3s ease;
-  }
-
-  .nav-mark:hover{ transform:translateY(-1px); }
-
-  nav.scrolled .nav-mark{ color:var(--navy); }
-
-  .nav-mark img{
-    width:28px;
-    height:28px;
-    animation:spinLogo 9s linear infinite;
-  }
-
-  @keyframes spinLogo{
-    to{ transform:rotate(360deg); }
-  }
-
-  .nav-links{
-    display:flex;
-    gap:2.4rem;
-    font-size:0.88rem;
-  }
-
-  .nav-links a{
-    color:rgba(255,255,255,0.82);
-    text-decoration:none;
-    position:relative;
-    transition:color 0.25s ease;
-  }
-
-  nav.scrolled .nav-links a{ color:var(--ink-soft); }
-
-  .nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0; bottom:-4px;
-    width:0%;
-    height:2px;
-    background:var(--red);
-    transition:width 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  }
-
-  .nav-links a:hover{ color:#fff; }
-  nav.scrolled .nav-links a:hover{ color:var(--navy); }
-  .nav-links a:hover::after{ width:100%; }
-
-  /* ---------- VIDEO INTRO (PAGE 1) ---------- */
-  .video-intro{
-    position:relative;
-    width:100%;
-    height:100vh;
-    height:100svh;
-    overflow:hidden;
-    background:#050c1f;
-  }
-
-  .video-intro video{
-    position:absolute;
-    top:50%; left:50%;
-    min-width:100%;
-    min-height:100%;
-    width:auto; height:auto;
-    transform:translate(-50%,-50%) scale(1.02);
-    object-fit:cover;
-    animation:videoBreathe 12s ease-in-out infinite;
-  }
-
-  @keyframes videoBreathe{
-    0%,100%{ transform:translate(-50%,-50%) scale(1.02); }
-    50%{ transform:translate(-50%,-50%) scale(1.08); }
-  }
-
-  .video-intro::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg, rgba(5,12,31,0.28) 0%, rgba(5,12,31,0.08) 35%, rgba(5,12,31,0.55) 100%);
-    pointer-events:none;
-  }
-
-  .video-intro::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:radial-gradient(ellipse at 30% 20%, rgba(224,31,38,0.16) 0%, transparent 55%),
-               radial-gradient(ellipse at 75% 80%, rgba(20,80,224,0.18) 0%, transparent 55%);
-    mix-blend-mode:screen;
-    pointer-events:none;
-    animation:tintDrift 10s ease-in-out infinite alternate;
-    z-index:1;
-  }
-
-  @keyframes tintDrift{
-    0%{ opacity:0.6; }
-    100%{ opacity:1; }
-  }
-
-  .video-intro-content{
-    position:relative;
-    z-index:2;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-end;
-    text-align:center;
-    padding:0 6vw 5.5rem;
-  }
-
-  .video-eyebrow{
-    font-size:0.78rem;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.75);
-    margin-bottom:0.05rem;
-    opacity:0;
-    animation:fadeUp 0.9s ease forwards 0.2s;
-  }
-
-  .video-eyebrow span{
-    color:#ff5a5f;
-    display:inline-block;
-    animation:tick 2.4s ease-in-out infinite;
-  }
-
-  .video-eyebrow span:nth-of-type(2){ animation-delay:0.3s; }
-
-  @keyframes tick{
-    0%,100%{ transform:scale(1); }
-    50%{ transform:scale(1.35) rotate(90deg); }
-  }
-
-  .video-word{
-    font-family:'Unbounded', sans-serif;
-    font-weight:700;
-    font-size:clamp(2.4rem, 7vw, 4.6rem);
-    color:#fff;
-    letter-spacing:-0.01em;
-    text-shadow:0 10px 40px rgba(0,0,0,0.35);
-    opacity:0;
-    animation:fadeUp 0.9s ease forwards 0.4s, wordGlow 4s ease-in-out infinite 1.4s;
-  }
-
-  @keyframes fadeUp{
-    from{ opacity:0; transform:translateY(22px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  @keyframes wordGlow{
-    0%,100%{ text-shadow:0 10px 40px rgba(0,0,0,0.35); }
-    50%{ text-shadow:0 10px 46px rgba(224,31,38,0.45), 0 0 60px rgba(20,80,224,0.25); }
-  }
-
-  .scroll-hint{
-    position:absolute;
-    bottom:2.6rem;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:0.72rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.8);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:0.5rem;
-    z-index:2;
-    animation:hintBob 2.4s ease-in-out infinite;
-  }
-
-  @keyframes hintBob{
-    0%,100%{ transform:translateX(-50%) translateY(0); }
-    50%{ transform:translateX(-50%) translateY(6px); }
-  }
-
-  .scroll-hint::after{
-    content:"";
-    width:1px;
-    height:34px;
-    background:linear-gradient(rgba(255,255,255,0.8), transparent);
-    animation:pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse{
-    0%,100%{ opacity:0.3; }
-    50%{ opacity:1; }
-  }
-
-  /* ---------- HERO (PAGE 2) ---------- */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:7rem 6vw 5rem;
-    overflow:hidden;
-  }
-
-  .orbit-field{
-    position:absolute;
-    top:50%; left:50%;
-    width:min(720px, 92vw);
-    height:min(720px, 92vw);
-    transform:translate(-50%,-52%);
-    pointer-events:none;
-  }
-
-  .orbit-ring{
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    border:1px solid var(--line);
-    animation:spinRing 40s linear infinite;
-  }
-  .orbit-ring.r2{ inset:9%; animation:spinRing 30s linear infinite reverse; }
-  .orbit-ring.r3{ inset:18%; animation:spinRing 55s linear infinite; }
-
-  .orbit-ring::before{
-    content:"";
-    position:absolute;
-    top:-3px; left:50%;
-    width:6px; height:6px;
-    border-radius:50%;
-    background:var(--red);
-    transform:translateX(-50%);
-  }
-  .orbit-ring.r2::before{ background:var(--blue); }
-  .orbit-ring.r3::before{ background:var(--navy); opacity:0.5; }
-
-  @keyframes spinRing{
-    from{ transform:rotate(0deg); }
-    to{ transform:rotate(360deg); }
-  }
-
-  .reveal{
-    opacity:0;
-    transform:translateY(24px);
-    transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .reveal.is-visible{
-    opacity:1;
-    transform:translateY(0);
-  }
-
-  .eyebrow{
-    font-size:0.78rem;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-bottom:1.1rem;
-  }
-
-  .eyebrow span{ color:var(--red); }
-
-  .logo-wrap{
-    position:relative;
-    width:min(220px, 34vw);
-    height:min(220px, 34vw);
-    margin-bottom:2.6rem;
-    animation:logoFloat 5s ease-in-out infinite;
-  }
-
-  @keyframes logoFloat{
-    0%,100%{ transform:translateY(0) rotate(-1.5deg); }
-    50%{ transform:translateY(-12px) rotate(1.5deg); }
-  }
-
-  .logo-3d{
-    position:relative;
-    width:100%;
-    height:100%;
-  }
-
-  .logo-face{
-    position:absolute;
-    inset:0;
-  }
-
-  .logo-face img{
-    width:100%;
-    height:100%;
-    filter:drop-shadow(0 18px 34px rgba(11,31,77,0.16));
-  }
-
-  .logo-face.back{
-    display:none;
-  }
-
-  .logo-edge{
-    display:none;
-  }
-
-  .logo-shadow{
-    position:absolute;
-    left:42%;
-    bottom:-14px;
-    width:60%;
-    height:16px;
-    transform:translateX(-50%);
-    background:radial-gradient(ellipse, rgba(11,31,77,0.20) 0%, rgba(11,31,77,0) 72%);
-    z-index:-1;
-    animation:shadowBreathe 5s ease-in-out infinite;
-  }
-
-  @keyframes shadowBreathe{
-    0%,100%{ transform:translateX(-50%) scaleX(1); opacity:0.5; }
-    50%{ transform:translateX(-50%) scaleX(0.8); opacity:0.32; }
-  }
-
-  .logo-glow{
-    position:absolute;
-    inset:-14%;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(224,31,38,0.10) 0%, rgba(20,80,224,0.08) 45%, rgba(255,255,255,0) 72%);
-    z-index:-1;
-    animation:glowPulse 5s ease-in-out infinite;
-  }
-
-  @keyframes glowPulse{
-    0%,100%{ opacity:0.7; transform:scale(1); }
-    50%{ opacity:1; transform:scale(1.08); }
-  }
-
-  h1{
-    font-family:'Unbounded', sans-serif;
-    font-weight:700;
-    font-size:clamp(2.4rem, 6.4vw, 4.9rem);
-    line-height:1.08;
-    letter-spacing:-0.01em;
-  }
-
-  h1 .accent-blue{
-    color:var(--blue);
-    display:inline-block;
-    animation:wiggle 3.5s ease-in-out infinite;
-  }
-  h1 .accent-red{
-    color:var(--red);
-    display:inline-block;
-    animation:wiggle 3.5s ease-in-out infinite 0.4s;
-  }
-
-  @keyframes wiggle{
-    0%,85%,100%{ transform:rotate(0deg); }
-    90%{ transform:rotate(-4deg); }
-    95%{ transform:rotate(4deg); }
-  }
-
-  .tagline{
-    max-width:520px;
-    margin:1.6rem auto 0;
-    font-size:1.05rem;
-    line-height:1.6;
-    color:var(--ink-soft);
-  }
-
-  .cta-row{
-    display:flex;
-    gap:1rem;
-    margin-top:2.6rem;
-  }
-
-  .btn{
-    font-family:'Manrope', sans-serif;
-    font-size:0.92rem;
-    font-weight:600;
-    padding:0.9rem 1.8rem;
-    border-radius:999px;
-    text-decoration:none;
-    transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, background 0.25s ease;
-    display:inline-block;
-    position:relative;
-    overflow:hidden;
-  }
-
-  .btn::before{
-    content:"";
-    position:absolute;
-    top:0; left:-120%;
-    width:60%; height:100%;
-    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
-    transform:skewX(-20deg);
-    transition:left 0.6s ease;
-  }
-
-  .btn:hover::before{ left:140%; }
-
-  .btn-primary{
-    background:var(--navy);
-    color:#fff;
-  }
-  .btn-primary:hover{
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 12px 28px rgba(11,31,77,0.3);
-  }
-
-  .btn-ghost{
-    color:var(--navy);
-    border:1px solid var(--line);
-  }
-  .btn-ghost:hover{
-    border-color:var(--navy);
-    transform:translateY(-3px) scale(1.03);
-    box-shadow:0 12px 24px rgba(11,31,77,0.12);
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-  }
-
-  @media (max-width:640px){
-    .nav-links{ display:none; }
-  }
+:root {
+  --navy: #0B1F3A;
+  --crimson: #C0272D;
+  --gold: #C9A84C;
+  --off-white: #F7F5F0;
+  --warm-white: #FDFCFA;
+  --light-gray: #EEF1F5;
+  --dark-gray: #3A4A5C;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--dark-gray); overflow-x:hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(11,31,58,0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.nav-logo img {
+  height: 38px;
+  width: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.nav-brand { display:flex; flex-direction:column; min-width:0; }
+.nav-brand-name {
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;
+  font-size:16px;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.nav-brand-sub {
+  font-size:8px;
+  color:var(--gold);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  font-weight:500;
+  line-height:1.3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.nav-links {
+  display:flex;
+  gap:28px;
+  list-style:none;
+  flex-shrink:0;
+}
+.nav-links a {
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:rgba(255,255,255,0.75);
+  text-decoration:none;
+  transition:color 0.3s;
+}
+.nav-links a:hover { color:#fff; }
+.nav-cta {
+  padding:8px 18px;
+  background:var(--crimson);
+  color:#fff !important;
+  border-radius:2px;
+  font-size:11px !important;
+}
+.hamburger {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:6px;
+  flex-shrink:0;
+}
+.hamburger span {
+  width:22px; height:2px;
+  background:rgba(255,255,255,0.85);
+  display:block;
+  transition:all 0.3s;
+  border-radius:2px;
+}
+.mobile-nav {
+  display:none;
+  position:fixed;
+  top:64px; left:0; right:0;
+  background:rgba(11,31,58,0.99);
+  z-index:999;
+  flex-direction:column;
+  border-top:1px solid rgba(201,168,76,0.15);
+}
+.mobile-nav.open { display:flex; }
+.mobile-nav a {
+  color:rgba(255,255,255,0.8);
+  text-decoration:none;
+  font-size:15px;
+  font-weight:400;
+  padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:block;
+}
+.mobile-nav a.cta { color:var(--gold); font-weight:600; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+  overflow: hidden;
+}
+.hero-bg {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--navy) 0%,#162B4D 60%,#1A3260 100%);
+}
+.hero-img {
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0.2;
+  mix-blend-mode:luminosity;
+}
+.hero-fade {
+  position:absolute; inset:0;
+  background:linear-gradient(to right, var(--navy) 20%, rgba(11,31,58,0.6) 60%, transparent 100%);
+}
+.hero-content {
+  position:relative;
+  z-index:2;
+  padding:60px 24px 120px;
+  max-width:600px;
+  width:100%;
+}
+.hero-tag {
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:24px;
+}
+.hero-tag-line { width:32px; height:1px; background:var(--gold); }
+.hero-tag span {
+  font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--gold); font-weight:500;
+}
+.hero-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,10vw,78px);
+  font-weight:300;
+  color:#fff;
+  line-height:1.05;
+  margin-bottom:16px;
+}
+.hero-title em { font-style:italic; color:var(--gold); }
+.hero-title strong { font-weight:700; display:block; }
+.hero-sub {
+  font-size:clamp(14px,3.5vw,16px);
+  color:rgba(255,255,255,0.6);
+  line-height:1.75;
+  font-weight:300;
+  margin-bottom:36px;
+  max-width:460px;
+}
+.hrd-badge {
+  max-width: 480px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 12px;
+  padding: 18px 24px;
+  background: rgba(201,168,76,0.05);
+  margin-bottom: 32px;
+}
+.hrd-badge-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.hrd-badge-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+}
+.hrd-badge-text strong {
+  font-style: normal;
+  font-weight: 600;
+  color: #fff;
+}
+.hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-red {
+  padding:14px 28px;
+  background:var(--crimson);
+  color:#fff;
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:600;
+  text-decoration:none;
+  border-radius:2px;
+  transition:all 0.3s;
+  border:1px solid var(--crimson);
+}
+.btn-ghost {
+  padding:14px 28px;
+  background:transparent;
+  color:rgba(255,255,255,0.75);
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:500;
+  text-decoration:none;
+  border-radius:2px;
+  border:1px solid rgba(255,255,255,0.25);
+  transition:all 0.3s;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+/* stats */
+.hero-stats {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  display:flex;
+  background:rgba(0,0,0,0.3);
+  border-top:1px solid rgba(255,255,255,0.08);
+  z-index:2;
+}
+.stat {
+  flex:1;
+  text-align:center;
+  padding:18px 8px;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.stat:last-child { border-right:none; }
+.stat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,5vw,34px);
+  font-weight:700;
+  color:#fff;
+  line-height:1;
+}
+.stat-num span { color:var(--gold); }
+.stat-label {
+  font-size:9px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  margin-top:4px;
+}
+
+/* ── SECTIONS ── */
+.sec { padding:64px 24px; }
+.sec-inner { max-width:1100px; margin:0 auto; }
+.tag {
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
+.tag-line { width:28px; height:1px; background:var(--crimson); }
+.tag span {
+  font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--crimson); font-weight:600;
+}
+h2.sec-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,6vw,52px);
+  font-weight:600;
+  color:var(--navy);
+  line-height:1.1;
+  margin-bottom:16px;
+}
+h2.sec-title em { font-style:italic; color:var(--crimson); font-weight:300; }
+.sec-lead {
+  font-size:15px;
+  color:var(--dark-gray);
+  line-height:1.75;
+  font-weight:300;
+  max-width:620px;
+}
+
+/* ── ABOUT ── */
+.about-bg { background:var(--off-white); }
+.about-grid {
+  display:grid;
+  grid-template-columns:1fr 1.4fr;
+  gap:56px;
+  align-items:center;
+  margin-top:40px;
+}
+.about-img-wrap { position:relative; }
+.about-img-wrap img {
+  width:100%; display:block;
+  border-radius:3px;
+  box-shadow:20px 20px 50px rgba(11,31,58,0.15);
+}
+.about-badge {
+  position:absolute;
+  bottom:-20px; left:-16px;
+  background:var(--crimson);
+  color:#fff;
+  padding:18px 22px;
+  border-radius:3px;
+  box-shadow:0 10px 28px rgba(192,39,45,0.3);
+}
+.about-badge-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px; font-weight:700; line-height:1;
+}
+.about-badge-txt {
+  font-size:9px; letter-spacing:0.1em;
+  text-transform:uppercase; opacity:0.9; margin-top:4px;
+}
+
+/* ── PILLARS ── */
+.pillars-bg { background:var(--navy); }
+.pillars-bg h2.sec-title { color:#fff; }
+.pillars-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  margin-top:40px;
+}
+.pillar {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  padding:40px 32px;
+  transition:background 0.35s;
+  position:relative;
+  overflow:hidden;
+}
+.pillar::after {
+  content:'';
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:3px;
+  background:var(--crimson);
+  transform:scaleX(0);
+  transition:transform 0.35s;
+  transform-origin:left;
+}
+.pillar:hover { background:rgba(255,255,255,0.06); }
+.pillar:hover::after { transform:scaleX(1); }
+.pillar-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:12px; color:var(--gold);
+  letter-spacing:0.15em; margin-bottom:10px;
+}
+.pillar h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:600; color:#fff;
+  margin-bottom:12px;
+}
+.pillar p {
+  font-size:13px; color:rgba(255,255,255,0.5);
+  line-height:1.75; font-weight:300;
+}
+
+/* ── VALUES ── */
+.values-img { width:100%; display:block; }
+
+/* ── EXPERIENCE ── */
+.exp-bg { background:var(--light-gray); }
+.exp-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:3px;
+  margin-top:40px;
+}
+.exp-card {
+  position:relative;
+  overflow:hidden;
+  background:#000;
+  aspect-ratio:4/3;
+}
+.exp-card img {
+  width:100%; height:100%;
+  object-fit:cover;
+  opacity:0.7;
+  transition:transform 0.5s, opacity 0.4s;
+  display:block;
+}
+.exp-card:hover img { transform:scale(1.05); opacity:0.5; }
+.exp-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(11,31,58,0.95) 0%,transparent 65%);
+  padding:24px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+}
+.exp-tag {
+  font-size:9px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:6px;
+}
+.exp-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,3vw,24px);
+  font-weight:600; color:#fff; line-height:1.2;
+}
+
+/* ── SERVICES ── */
+.services-bg { background:var(--navy); position:relative; overflow:hidden; }
+.services-bg h2.sec-title { color:#fff; }
+.services-bg .tag span { color:var(--gold); }
+.services-bg .tag-line { background:var(--gold); }
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  margin-top:40px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.07);
+}
+.svc {
+  background:rgba(11,31,58,0.95);
+  padding:40px 32px;
+  transition:background 0.35s;
+  position:relative;
+  overflow:hidden;
+}
+.svc::before {
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:3px;
+  background:var(--gold);
+  transform:scaleY(0);
+  transition:transform 0.35s;
+  transform-origin:bottom;
+}
+.svc:hover { background:rgba(20,42,72,0.98); }
+.svc:hover::before { transform:scaleY(1); }
+.svc-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:44px; font-weight:700;
+  color:rgba(201,168,76,0.12);
+  line-height:1; margin-bottom:14px;
+}
+.svc-icon { font-size:26px; margin-bottom:14px; display:block; }
+.svc h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px; font-weight:600; color:#fff;
+  margin-bottom:10px;
+}
+.svc p {
+  font-size:13px; color:rgba(255,255,255,0.45);
+  line-height:1.75; font-weight:300;
+}
+
+/* ── WHY ── */
+.why-bg {
+  background:linear-gradient(135deg,var(--navy) 0%,#162B4D 100%);
+}
+.why-bg h2.sec-title { color:#fff; }
+.why-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:72px;
+  margin-top:40px;
+  align-items:start;
+}
+.why-lead {
+  font-size:15px;
+  color:rgba(255,255,255,0.55);
+  line-height:1.8; font-weight:300;
+  margin-bottom:28px;
+}
+.btn-red-outline {
+  display:inline-block;
+  padding:13px 28px;
+  border:1px solid var(--crimson);
+  color:var(--crimson);
+  font-size:11px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  font-weight:600;
+  text-decoration:none;
+  border-radius:2px;
+  transition:all 0.3s;
+}
+.btn-red-outline:hover { background:var(--crimson); color:#fff; }
+.why-items { display:flex; flex-direction:column; gap:24px; }
+.why-item { display:flex; gap:18px; align-items:flex-start; }
+.why-icon {
+  width:42px; height:42px; flex-shrink:0;
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; margin-top:2px;
+}
+.why-item h4 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px; font-weight:600; color:#fff;
+  margin-bottom:5px;
+}
+.why-item p {
+  font-size:13px; color:rgba(255,255,255,0.45);
+  line-height:1.7; font-weight:300;
+}
+
+/* ── CTA ── */
+.cta-band {
+  background:var(--crimson);
+  padding:64px 24px;
+  text-align:center;
+}
+.cta-band h2 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(30px,6vw,48px);
+  font-weight:600; color:#fff;
+  margin-bottom:14px;
+}
+.cta-band p {
+  font-size:14px; color:rgba(255,255,255,0.8);
+  line-height:1.75; font-weight:300;
+  max-width:560px; margin:0 auto 32px;
+}
+.btn-white {
+  display:inline-block;
+  padding:14px 36px;
+  background:#fff;
+  color:var(--crimson);
+  font-size:11px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  font-weight:700;
+  text-decoration:none;
+  border-radius:2px;
+  transition:all 0.3s;
+}
+.btn-white:hover { background:var(--navy); color:#fff; }
+
+/* ── CONTACT ── */
+.contact-bg { background:var(--off-white); }
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  margin-top:40px;
+  align-items:start;
+}
+.contact-info h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px; font-weight:600; color:var(--navy);
+  margin-bottom:12px;
+}
+.contact-info > p {
+  font-size:14px; color:var(--dark-gray);
+  line-height:1.75; font-weight:300;
+  margin-bottom:28px;
+}
+.cdet { display:flex; gap:12px; align-items:flex-start; margin-bottom:16px; }
+.cdet-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.cdet-text { font-size:13.5px; color:var(--dark-gray); line-height:1.65; font-weight:300; }
+.cdet-text strong {
+  display:block; font-weight:600; color:var(--navy);
+  font-size:10px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:2px;
+}
+.form-box {
+  background:#fff;
+  border:1px solid #E2E7EF;
+  padding:36px 32px;
+  border-radius:3px;
+  box-shadow:0 10px 36px rgba(11,31,58,0.06);
+}
+.form-box h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px; font-weight:600; color:var(--navy);
+  margin-bottom:24px;
+}
+.fg { margin-bottom:18px; }
+.fg label {
+  display:block;
+  font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  font-weight:600; color:var(--navy); margin-bottom:6px;
+}
+.fg input, .fg textarea {
+  width:100%; padding:11px 14px;
+  border:1px solid #D8E0EA;
+  border-radius:2px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px; color:var(--dark-gray);
+  background:var(--off-white);
+  outline:none; font-weight:300;
+  transition:border-color 0.3s;
+}
+.fg input:focus, .fg textarea:focus { border-color:var(--navy); }
+.fg textarea { height:110px; resize:vertical; }
+.form-submit {
+  width:100%; padding:14px;
+  background:var(--navy); color:#fff;
+  border:none; border-radius:2px;
+  font-family:'DM Sans',sans-serif;
+  font-size:11px; letter-spacing:0.16em;
+  text-transform:uppercase; font-weight:600;
+  cursor:pointer; transition:background 0.3s; margin-top:6px;
+}
+.form-submit:hover { background:var(--crimson); }
+
+/* ── FOOTER ── */
+footer { background:#080F1C; padding:56px 24px 36px; }
+.footer-top {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;
+  padding-bottom:40px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.footer-logo { height:44px; margin-bottom:16px; }
+.footer-desc {
+  font-size:12.5px; color:rgba(255,255,255,0.4);
+  line-height:1.75; font-weight:300;
+}
+.fcol-title {
+  font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:16px;
+}
+.fcol ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.fcol ul a {
+  font-size:13px; color:rgba(255,255,255,0.45);
+  text-decoration:none; transition:color 0.3s; font-weight:300;
+}
+.fcol ul a:hover { color:rgba(255,255,255,0.85); }
+.footer-bottom {
+  display:flex; justify-content:space-between;
+  gap:24px; padding-top:28px; flex-wrap:wrap;
+}
+.footer-copy {
+  font-size:11.5px; color:rgba(255,255,255,0.3);
+  line-height:1.6; font-weight:300;
+}
+.footer-copy strong { color:rgba(255,255,255,0.5); }
+.footer-legal {
+  font-size:10.5px; color:rgba(255,255,255,0.22);
+  line-height:1.65; max-width:520px; font-weight:300; font-style:italic;
+}
+.disclaimer {
+  background:#040A12;
+  padding:18px 24px;
+  border-top:1px solid rgba(201,168,76,0.1);
+  text-align:center;
+}
+.disclaimer p {
+  font-size:10.5px; color:rgba(255,255,255,0.2);
+  line-height:1.6; font-weight:300;
+}
+
+/* ── REVEAL ── */
+.reveal {
+  opacity:0; transform:translateY(28px);
+  transition:opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.on { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (min-width:769px) {
+  nav { padding:0 48px; }
+  .nav-logo img { height:44px; width:auto; }
+  .nav-brand-name { font-size:18px; }
+  .hamburger { display:none; }
+  .hero-content { padding:80px 80px 120px; }
+}
+
+@media (max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .about-grid { grid-template-columns:1fr; gap:40px; }
+  .about-img-wrap { margin-bottom:28px; }
+  .about-badge { bottom:-14px; left:-10px; }
+  .pillars-grid { grid-template-columns:1fr; gap:2px; }
+  .exp-grid { grid-template-columns:1fr; }
+  .services-grid { grid-template-columns:1fr; gap:1px; }
+  .why-grid { grid-template-columns:1fr; gap:40px; }
+  .contact-grid { grid-template-columns:1fr; gap:40px; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; }
+  .sec { padding:56px 20px; }
+}
+
+@media (max-width:480px) {
+  .hero-content { padding:40px 20px 100px; }
+  .hero-btns { flex-direction:column; }
+  .hero-btns a { text-align:center; }
+  .stat-num { font-size:20px; }
+  .stat-label { font-size:8px; }
+  .footer-top { grid-template-columns:1fr; }
+  .exp-grid { grid-template-columns:1fr; }
+  .services-grid { grid-template-columns:1fr; gap:1px; }
+}
 </style>
 </head>
 <body>
 
-<nav class="on-video" id="siteNav">
-  <div class="nav-mark">
-    <img src="logo.png" alt="KolKMa logo">
-    KolKMa
-  </div>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- PAGE 1 — full-bleed video, nothing else -->
-<section class="video-intro" id="top">
-  <video
-    src="logo koikma pusing.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto">
-  </video>
-
-  <div class="video-intro-content">
-    <div class="video-eyebrow">People <span>&times;</span> Purpose <span>&times;</span> Progress</div>
-    <div class="video-word">KolKMa</div>
-  </div>
-
-  <div class="scroll-hint">Scroll</div>
-</section>
-
-<!-- PAGE 2 — the site starts here -->
-<section class="hero" id="about">
-  <div class="orbit-field" aria-hidden="true">
-    <div class="orbit-ring"></div>
-    <div class="orbit-ring r2"></div>
-    <div class="orbit-ring r3"></div>
-  </div>
-
-  <div class="eyebrow reveal">People <span>&times;</span> Purpose <span>&times;</span> Progress</div>
-
-  <div class="logo-wrap reveal">
-    <div class="logo-glow"></div>
-    <div class="logo-3d">
-      <div class="logo-face front">
-        <img src="logo.png" alt="KolKMa logo">
-      </div>
-      <div class="logo-face back">
-        <img src="logo.png" alt="" aria-hidden="true">
-      </div>
-      <div class="logo-edge" aria-hidden="true"></div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="image1.png" alt="KoIKMa Logo">
+    <div class="nav-brand">
+      <span class="nav-brand-name">KoIKMa</span>
+      <span class="nav-brand-sub">Koperasi Warga Institut Koperasi Malaysia Berhad</span>
     </div>
-    <div class="logo-shadow" aria-hidden="true"></div>
   </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="https://koikma.github.io/trainers/" target="_blank">Experts</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="menuBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMob()">About Us</a>
+  <a href="https://koikma.github.io/trainers/" target="_blank" onclick="closeMob()">Experts</a>
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#contact" onclick="closeMob()" class="cta">Contact Us →</a>
+</div>
 
-  <h1 class="reveal">We bring people <br> <span class="accent-blue">together</span> to <span class="accent-red">build</span>.</h1>
-
-  <p class="tagline reveal">
-    KolKMa connects the people behind every idea — turning collaboration
-    into momentum, one project at a time.
-  </p>
-
-  <div class="cta-row reveal">
-    <a href="#work" class="btn btn-primary">See our work</a>
-    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <img class="hero-img" src="image2.png" alt="">
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <span>Malaysia's Cooperative Centre of Excellence</span>
+    </div>
+    <h1 class="hero-title">
+      Empowering<br>
+      <em>Cooperative</em><br>
+      <strong>Excellence</strong>
+    </h1>
+    <p class="hero-sub">Building capacity, strengthening leadership, and driving sustainable growth through high-impact training and consultation.</p>
+    <div class="hrd-badge">
+    <p class="hrd-badge-label">Accredited Training Provider</p>
+    <p class="hrd-badge-text">An accredited Training Provider registered with the
+    <strong>Human Resource Development Corporation (HRD Corp), Malaysia</strong>,
+    delivering certified and industry-relevant training solutions.</p>
+  </div>
+    <div class="hero-btns">
+      <a href="#services" class="btn-red">Our Services</a>
+      <a href="#contact" class="btn-ghost">Contact Us</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">25<span>+</span></div>
+      <div class="stat-label">Years</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500<span>+</span></div>
+      <div class="stat-label">Cooperatives</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10K<span>+</span></div>
+      <div class="stat-label">Trained</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">Nationwide</div>
+    </div>
   </div>
 </section>
+
+<!-- ABOUT -->
+<section class="sec about-bg" id="about">
+  <div class="sec-inner">
+    <div class="tag reveal"><div class="tag-line"></div><span>Who We Are</span></div>
+    <h2 class="sec-title reveal">Dedicated to the <em>Growth</em><br>of Malaysia's Cooperatives</h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="sec-lead">KoIKMa is Malaysia's premier cooperative institution — delivering transformative training, strategic consultation, and capacity-building to elevate cooperative performance to international standards. Built on integrity, transparency, and shared prosperity.</p>
+      </div>
+      <div class="about-img-wrap reveal">
+        <img src="image3.png" alt="KoIKMa Professional Environment">
+        <div class="about-badge">
+          <div class="about-badge-num">25+</div>
+          <div class="about-badge-txt">Years of<br>Excellence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="sec pillars-bg">
+  <div class="sec-inner">
+    <div class="tag reveal"><div class="tag-line" style="background:var(--gold)"></div><span style="color:var(--gold)">Our Approach</span></div>
+    <h2 class="sec-title reveal">Three <em>Pillars</em> of Excellence</h2>
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01 — Training & Development</div>
+        <h3>Knowledge That Transforms</h3>
+        <p>Structured programmes tailored to cooperative leaders — combining theory with practical application to drive lasting competency.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">02 — Consultation</div>
+        <h3>Strategy That Delivers</h3>
+        <p>Expert consultants working alongside boards to design strategic roadmaps and improve governance, operations, and financial health.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">03 — Capacity Building</div>
+        <h3>Systems That Sustain</h3>
+        <p>Long-term mentorship and embedded support ensuring capabilities become the foundation for self-sustaining cooperative excellence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <img class="values-img" src="image3.png" alt="KoIKMa Core Values — Integrity, Excellence, Collaboration">
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec exp-bg" id="experience">
+  <div class="sec-inner">
+    <div class="tag reveal"><div class="tag-line"></div><span>Our Experience</span></div>
+    <h2 class="sec-title reveal">Proven Expertise, <em>Real Impact</em></h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <img src="image3.png" alt="Cooperative Governance">
+        <div class="exp-overlay">
+          <div class="exp-tag">Governance</div>
+          <div class="exp-title">Cooperative Governance Training</div>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <img src="image3.png" alt="Strategic Planning">
+        <div class="exp-overlay">
+          <div class="exp-tag">Workshop</div>
+          <div class="exp-title">Strategic Planning Workshop</div>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <img src="image3.png" alt="Financial Management">
+        <div class="exp-overlay">
+          <div class="exp-tag">Finance</div>
+          <div class="exp-title">Financial Management for Cooperatives</div>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <img src="image3.png" alt="Leadership Excellence">
+        <div class="exp-overlay">
+          <div class="exp-tag">Leadership</div>
+          <div class="exp-title">Leadership Excellence Programme</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec services-bg" id="services">
+  <div class="sec-inner">
+    <div class="tag reveal"><div class="tag-line" style="background:var(--gold)"></div><span style="color:var(--gold)">What We Offer</span></div>
+    <h2 class="sec-title reveal">Our <em>Services</em></h2>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <div class="svc-num">01</div>
+        <span class="svc-icon">🎓</span>
+        <h3>Training & Development</h3>
+        <p>Accredited programmes covering governance, finance, leadership, and operations — delivered by industry experts.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">02</div>
+        <span class="svc-icon">📊</span>
+        <h3>Strategic Consultation</h3>
+        <p>Advisory services for cooperative boards — strategic planning, restructuring, performance, and compliance.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">03</div>
+        <span class="svc-icon">🤝</span>
+        <h3>Capacity Building</h3>
+        <p>Long-term development programmes embedding best practices and building human capital for sustained growth.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">04</div>
+        <span class="svc-icon">📋</span>
+        <h3>Governance Advisory</h3>
+        <p>Guidance on governance frameworks, board effectiveness, constitutional compliance, and transparent reporting.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">05</div>
+        <span class="svc-icon">💡</span>
+        <h3>Cooperative Research</h3>
+        <p>Applied research on trends, benchmarking, and sector analysis to inform strategic decisions and policy.</p>
+      </div>
+      <div class="svc reveal">
+        <div class="svc-num">06</div>
+        <span class="svc-icon">🌐</span>
+        <h3>Digital Transformation</h3>
+        <p>Supporting cooperatives in adopting digital tools to enhance operational efficiency and member service delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why-bg">
+  <div class="sec-inner">
+    <div class="why-grid">
+      <div>
+        <div class="tag reveal"><div class="tag-line"></div><span>Why KoIKMa</span></div>
+        <h2 class="sec-title reveal">The Trusted <em>Partner</em><br>for Cooperatives</h2>
+        <p class="why-lead reveal">For over two decades, KoIKMa has been Malaysia's go-to institution for cooperative excellence — proven expertise, real results.</p>
+        <a href="#contact" class="btn-red-outline reveal">Schedule a Consultation</a>
+      </div>
+      <div class="why-items">
+        <div class="why-item reveal">
+          <div class="why-icon">🏛️</div>
+          <div>
+            <h4>Sector Specialists</h4>
+            <p>Deep expertise in Malaysian cooperative law, regulation, and strategy — not a generic training provider.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">🎯</div>
+          <div>
+            <h4>Tailored Programmes</h4>
+            <p>Every engagement is customised to your cooperative's size, maturity, and goals for maximum impact.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">🌍</div>
+          <div>
+            <h4>International Standards</h4>
+            <p>Global best practices adapted to the Malaysian context — giving your cooperative a competitive edge.</p>
+          </div>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">🔗</div>
+          <div>
+            <h4>End-to-End Support</h4>
+            <p>From assessment to delivery to evaluation — we walk alongside you throughout the entire journey.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Ready to Elevate Your Cooperative?</h2>
+  <p>Join hundreds of cooperatives across Malaysia that have partnered with KoIKMa for stronger governance and sustainable growth.</p>
+  <a href="#contact" class="btn-white">Get In Touch</a>
+</div>
+
+<!-- CONTACT -->
+<section class="sec contact-bg" id="contact">
+  <div class="sec-inner">
+    <div class="tag reveal"><div class="tag-line"></div><span>Get In Touch</span></div>
+    <h2 class="sec-title reveal">Let's Work <em>Together</em></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-info">
+          <h3>We're Here to Help</h3>
+          <p>Reach out to explore our training programmes, consultation services, or partnership opportunities.</p>
+          <div class="cdet">
+            <span class="cdet-icon">📍</span>
+            <div class="cdet-text">
+              <strong>Address</strong>
+              Blok K, 103, Jalan Templer,<br>46700 Petaling Jaya, Selangor
+            </div>
+          </div>
+          <div class="cdet">
+            <span class="cdet-icon">📞</span>
+            <div class="cdet-text">
+              <strong>Phone</strong>
+              03-7932 1481<br>
+              <span style="font-size:12px;opacity:0.7">Mon–Fri, 8:30 AM – 5:30 PM</span>
+            </div>
+          </div>
+          <div class="cdet">
+            <span class="cdet-icon">✉️</span>
+            <div class="cdet-text">
+              <strong>Email</strong>
+              info@koikma.my
+            </div>
+          </div>
+          <div class="cdet">
+            <span class="cdet-icon">🌐</span>
+            <div class="cdet-text">
+              <strong>Website</strong>
+              www.koikma.my
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-box reveal">
+        <h3>Send an Enquiry</h3>
+        <div class="fg">
+          <label>Full Name *</label>
+          <input type="text" placeholder="Your full name">
+        </div>
+        <div class="fg">
+          <label>Organisation *</label>
+          <input type="text" placeholder="Your cooperative / organisation">
+        </div>
+        <div class="fg">
+          <label>Email *</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+        <div class="fg">
+          <label>Phone</label>
+          <input type="tel" placeholder="Your contact number">
+        </div>
+        <div class="fg">
+          <label>Message</label>
+          <textarea placeholder="How can we help you?"></textarea>
+        </div>
+        <button class="form-submit">Submit Enquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="image1.png" alt="KoIKMa" class="footer-logo">
+      <p class="footer-desc">Koperasi Warga Institut Koperasi Malaysia Berhad — strengthening Malaysia's cooperative sector through world-class training, consultation, and capacity building.</p>
+    </div>
+    <div class="fcol">
+      <div class="fcol-title">Company</div>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#values">Our Values</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <div class="fcol-title">Services</div>
+      <ul>
+        <li><a href="#services">Training</a></li>
+        <li><a href="#services">Consultation</a></li>
+        <li><a href="#services">Capacity Building</a></li>
+        <li><a href="#services">Governance</a></li>
+        <li><a href="#services">Research</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <div class="fcol-title">Contact</div>
+      <ul>
+        <li><a href="tel:0379321481">03-7932 1481</a></li>
+        <li><a href="mailto:info@koikma.my">info@koikma.my</a></li>
+        <li><a href="#">Blok K, 103, Jalan Templer</a></li>
+        <li><a href="#">46700 Petaling Jaya</a></li>
+        <li><a href="#">Selangor, Malaysia</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy"><strong>© 2026 Koperasi Warga Institut Koperasi Malaysia Berhad (KoIKMa).</strong><br>All rights reserved. Registered cooperative under the Cooperative Societies Act 1993.</p>
+    <p class="footer-legal">Information on this website is for general purposes only. Programme details and schedules are subject to change without notice. KoIKMa makes no warranties regarding accuracy or completeness of content.</p>
+  </div>
+</footer>
+<div class="disclaimer">
+  <p><strong style="color:rgba(255,255,255,0.35)">DISCLAIMER:</strong> This website is the intellectual property of KoIKMa. Unauthorised reproduction is prohibited. Content does not constitute legal or financial advice. KoIKMa reserves the right to amend information at any time without notice.</p>
+</div>
 
 <script>
-  const nav = document.getElementById('siteNav');
-  const videoIntro = document.getElementById('top');
+  // Mobile nav
+  const btn = document.getElementById('menuBtn');
+  const mob = document.getElementById('mobileNav');
+  btn.addEventListener('click', () => mob.classList.toggle('open'));
+  function closeMob() { mob.classList.remove('open'); }
 
-  function updateNav(){
-    const introHeight = videoIntro.offsetHeight;
-    if (window.scrollY > introHeight - 80){
-      nav.classList.remove('on-video');
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.add('on-video');
-      nav.classList.remove('scrolled');
-    }
-  }
-
-  window.addEventListener('scroll', updateNav, { passive:true });
-  updateNav();
-
-  // Staggered scroll reveal for hero content
-  const revealEls = document.querySelectorAll('.hero .reveal');
-  revealEls.forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.12) + 's';
+  // Close mobile nav on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !mob.contains(e.target)) mob.classList.remove('open');
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting){
-        entry.target.classList.add('is-visible');
-      }
+  // Scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
     });
-  }, { threshold:0.2 });
-
-  revealEls.forEach(el => observer.observe(el));
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
