@@ -577,10 +577,11 @@ h2.sec-title em { font-style:italic; color:var(--crimson); font-weight:300; }
 }
 .svc {
   background:rgba(11,31,58,0.95);
-  padding:40px 32px;
-  transition:background 0.35s;
+  padding:0;
+  transition:transform 0.35s;
   position:relative;
   overflow:hidden;
+  aspect-ratio:1/1;
 }
 .svc::before {
   content:'';
@@ -591,24 +592,15 @@ h2.sec-title em { font-style:italic; color:var(--crimson); font-weight:300; }
   transform:scaleY(0);
   transition:transform 0.35s;
   transform-origin:bottom;
+  z-index:2;
 }
-.svc:hover { background:rgba(20,42,72,0.98); }
+.svc:hover { transform:scale(1.02); }
 .svc:hover::before { transform:scaleY(1); }
-.svc-num {
-  font-family:'Cormorant Garamond',serif;
-  font-size:44px; font-weight:700;
-  color:rgba(201,168,76,0.12);
-  line-height:1; margin-bottom:14px;
-}
-.svc-icon { font-size:26px; margin-bottom:14px; display:block; }
-.svc h3 {
-  font-family:'Cormorant Garamond',serif;
-  font-size:20px; font-weight:600; color:#fff;
-  margin-bottom:10px;
-}
-.svc p {
-  font-size:13px; color:rgba(255,255,255,0.45);
-  line-height:1.75; font-weight:300;
+.svc-img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
 /* ── WHY ── */
@@ -1043,40 +1035,22 @@ footer { background:#080F1C; padding:56px 24px 36px; }
     <h2 class="sec-title reveal">Our <em>Services</em></h2>
     <div class="services-grid">
       <div class="svc reveal">
-        <div class="svc-num">01</div>
-        <span class="svc-icon">🎓</span>
-        <h3>Training & Development</h3>
-        <p>Accredited programmes covering governance, finance, leadership, and operations — delivered by industry experts.</p>
+        <img src="TD.png" alt="Training & Development" class="svc-img">
       </div>
       <div class="svc reveal">
-        <div class="svc-num">02</div>
-        <span class="svc-icon">📊</span>
-        <h3>Strategic Consultation</h3>
-        <p>Advisory services for cooperative boards — strategic planning, restructuring, performance, and compliance.</p>
+        <img src="SC.png" alt="Strategic Consultation" class="svc-img">
       </div>
       <div class="svc reveal">
-        <div class="svc-num">03</div>
-        <span class="svc-icon">🤝</span>
-        <h3>Capacity Building</h3>
-        <p>Long-term development programmes embedding best practices and building human capital for sustained growth.</p>
+        <img src="CB.png" alt="Capacity Building" class="svc-img">
       </div>
       <div class="svc reveal">
-        <div class="svc-num">04</div>
-        <span class="svc-icon">📋</span>
-        <h3>Governance Advisory</h3>
-        <p>Guidance on governance frameworks, board effectiveness, constitutional compliance, and transparent reporting.</p>
+        <img src="GA.png" alt="Governance Advisory" class="svc-img">
       </div>
       <div class="svc reveal">
-        <div class="svc-num">05</div>
-        <span class="svc-icon">💡</span>
-        <h3>Cooperative Research</h3>
-        <p>Applied research on trends, benchmarking, and sector analysis to inform strategic decisions and policy.</p>
+        <img src="CR.png" alt="Cooperative Research" class="svc-img">
       </div>
       <div class="svc reveal">
-        <div class="svc-num">06</div>
-        <span class="svc-icon">🌐</span>
-        <h3>Digital Transformation</h3>
-        <p>Supporting cooperatives in adopting digital tools to enhance operational efficiency and member service delivery.</p>
+        <img src="DT.png" alt="Digital Transformation" class="svc-img">
       </div>
     </div>
   </div>
