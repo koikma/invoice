@@ -128,6 +128,128 @@ nav {
 }
 .mobile-nav a.cta { color:var(--gold); font-weight:600; }
 
+/* ── VIDEO INTRO (PAGE 1) ── */
+.video-intro {
+  position:relative;
+  width:100%;
+  height:100vh;
+  height:100svh;
+  overflow:hidden;
+  background:var(--navy);
+}
+.video-intro video {
+  position:absolute;
+  top:50%; left:50%;
+  min-width:100%;
+  min-height:100%;
+  width:auto; height:auto;
+  transform:translate(-50%,-50%);
+  object-fit:cover;
+}
+.video-intro::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(11,31,58,0.30) 0%, rgba(11,31,58,0.10) 35%, rgba(11,31,58,0.65) 100%);
+  pointer-events:none;
+}
+.video-intro::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 30% 20%, rgba(192,39,45,0.10) 0%, transparent 55%),
+             radial-gradient(ellipse at 75% 80%, rgba(201,168,76,0.12) 0%, transparent 55%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+  z-index:1;
+}
+.video-intro-content {
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  text-align:center;
+  padding:0 24px 5.5rem;
+}
+.video-tag {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+.video-tag-line { width:32px; height:1px; background:var(--gold); }
+.video-tag span {
+  font-size:10px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:500;
+}
+.video-word {
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;
+  font-style:italic;
+  font-size:clamp(2.6rem, 7vw, 4.8rem);
+  color:#fff;
+  letter-spacing:0.01em;
+  text-shadow:0 10px 40px rgba(0,0,0,0.4);
+  opacity:0;
+  animation:fadeUp 0.9s ease forwards 0.3s;
+}
+.video-sub {
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.55);
+  font-weight:400;
+  max-width:360px;
+  opacity:0;
+  animation:fadeUp 0.9s ease forwards 0.5s;
+}
+@keyframes fadeUp {
+  from{ opacity:0; transform:translateY(20px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.scroll-hint {
+  position:absolute;
+  bottom:2.4rem;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.7);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.5rem;
+  z-index:2;
+  text-decoration:none;
+  animation:hintBob 2.4s ease-in-out infinite;
+}
+@keyframes hintBob {
+  0%,100%{ transform:translateX(-50%) translateY(0); }
+  50%{ transform:translateX(-50%) translateY(6px); }
+}
+.scroll-hint::after {
+  content:"";
+  width:1px;
+  height:34px;
+  background:linear-gradient(rgba(255,255,255,0.7), transparent);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{ opacity:0.3; }
+  50%{ opacity:1; }
+}
+@media (prefers-reduced-motion: reduce){
+  .video-word, .video-sub, .scroll-hint, .scroll-hint::after { animation:none; opacity:1; }
+}
+
 /* ── HERO ── */
 .hero {
   min-height: 100svh;
@@ -747,8 +869,31 @@ footer { background:#080F1C; padding:56px 24px 36px; }
   <a href="#contact" onclick="closeMob()" class="cta">Contact Us →</a>
 </div>
 
-<!-- HERO -->
-<section class="hero">
+<!-- PAGE 1 — VIDEO INTRO -->
+<section class="video-intro" id="top">
+  <video
+    src="logo koikma pusing.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto">
+  </video>
+
+  <div class="video-intro-content">
+    <div class="video-tag">
+      <div class="video-tag-line"></div>
+      <span>Malaysia's Cooperative Centre of Excellence</span>
+    </div>
+    <div class="video-word">KoIKMa</div>
+    <div class="video-sub">Koperasi Warga Institut Koperasi Malaysia Berhad</div>
+  </div>
+
+  <a href="#hero-start" class="scroll-hint">Scroll</a>
+</section>
+
+<!-- PAGE 2 onwards — HERO -->
+<section class="hero" id="hero-start">
   <div class="hero-bg"></div>
   <img class="hero-img" src="image2.png" alt="">
   <div class="hero-fade"></div>
